@@ -9,18 +9,19 @@ class Isentropic(FormulaeBase):
         super(Isentropic, self).__init__()
 
     def p_p0(self,M, gamma=1.4):
-        ans = self.t_t0(M, gamma) ** (gamma / (gamma - 1))
+        ans = self.t_t0(M, gamma,False) ** (gamma / (gamma - 1))
         self.store('p_p0', ans)
         return ans
         
     def rho_rho0(self,M, gamma=1.4):
-        ans = self.t_t0(M, gamma) ** (1 / (gamma - 1))
+        ans = self.t_t0(M, gamma,False) ** (1 / (gamma - 1))
         self.store('rho_rho0', ans)
         return ans
 
-    def t_t0(self,M,gamma=1.4):
+    def t_t0(self,M,gamma=1.4,store=True):
         ans = (1+(gamma-1)/2 * M**2) ** -1
-        self.store('t_t0', ans)
+        if store:
+            self.store('t_t0', ans)
         return ans
 
     def M(self, p_p0=None, rho_rho0=None, t_t0=None,

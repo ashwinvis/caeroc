@@ -25,7 +25,7 @@ class FormulaeBase(object):
         inf = 1e5
 
         for k in keys:
-            self.data[k] = None
+            self.data[k] = []
 
             if k in key_mach:
                 self.minima[k] = 0.
@@ -52,7 +52,7 @@ class FormulaeBase(object):
             raise ValueError('Unknown key: %s'%key)
 
         self._check_limits(key, val)
-        self.data[key] = val
+        self.data[key].append(val)
 
     def _check_limits(self, key, val):
         """Checks if the computed value is within the theoretical limits"""
