@@ -1,7 +1,7 @@
 import sys
 from PySide import QtCore, QtGui
 
-from base import Ui_Calc
+from caeroc.gui.base import Ui_Calc
 
 
 class Calc_Dialog(QtGui.QDialog):

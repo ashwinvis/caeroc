@@ -1,3 +1,8 @@
+<!---- 
+Source code from 
+http://www.dept.aoe.vt.edu/~devenpor/aoe3114/calc.html 
+------->
+
 <SCRIPT>
 <!----- ISENTROPIC ------->
 function isent(form) {
