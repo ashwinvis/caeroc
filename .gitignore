@@ -1,0 +1,7 @@
+/*.pyc
+*.swp
+*.swo
+*.js
+.spyderworkspace
+caeroc.egg-info/*
+examples/*
