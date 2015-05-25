@@ -22,7 +22,7 @@ class FormulaeBase(object):
         key_mach = ['M','M1', 'M2', 'M1n', 'M2n']
         key_ratio = ['p_p0','rho_rho0','t_t0']
         key_ang = ['pm', 'theta']
-        inf = 1e5
+        inf = 1e10
 
         for k in keys:
             self.data[k] = []
@@ -60,5 +60,5 @@ class FormulaeBase(object):
         minimum = self.minima[key] 
         maximum = self.maxima[key] 
         if val < minimum or val > maximum:
-            raise ValueError('%s must be between %f and %f'%(key,minimum,maximum))
+            raise ValueError('%s = %f must be between %d and %d'%(key,val,minimum,maximum))
 

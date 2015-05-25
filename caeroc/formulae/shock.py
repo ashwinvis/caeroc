@@ -65,13 +65,13 @@ class ObliqueShock:
         if(i==1):
             return betas
         
-    def M1nM2n(self, M1, beta ,gamma=1.4):
+    def mach1n_mach2n(self, M1, beta ,gamma=1.4):
         M1n = M1 * np.sin(beta)
         M2n = np.sqrt((1. + .5 * (gamma - 1.) * M1n**2) /
                       (gamma * M1n**2 - .5 * (gamma - 1.)))
         return M1n, M2n
         
-    def M2(self,M1,theta,gamma=1.4):
+    def mach2(self,M1,theta,gamma=1.4):
         beta = self.beta(M1, theta)
         M1n, M2n = self.M1nM2n(M1, beta, gamma)
         M2 = M2n / np.sin(beta-theta)

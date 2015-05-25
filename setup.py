@@ -77,7 +77,7 @@ setup(name='caeroc',
       #     'sample': ['package_data.dat'],
       # },
       install_requires=['numpy', 'matplotlib'],
-      extras_require=dict(plot=['pylab'], ui=['PySide']),
+      extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
       scripts=[]
       )
 """
