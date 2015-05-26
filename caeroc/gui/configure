@@ -1,0 +1,2 @@
+python2-pyuic5 base.ui > base_pyqt.py
+pyside-uic base.ui > base_pyside.py
