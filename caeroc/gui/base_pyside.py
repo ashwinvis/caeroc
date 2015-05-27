@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'base.ui'
 #
-# Created: Tue May 26 23:34:38 2015
+# Created: Wed May 27 23:49:31 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -100,10 +100,8 @@ class Ui_CalcDialog(object):
         self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
         self.verticalLayout_3.addWidget(self.line_4)
-        self.qtw_output = QtGui.QTableWidget(self.verticalLayoutWidget_3)
+        self.qtw_output = QtGui.QTableView(self.verticalLayoutWidget_3)
         self.qtw_output.setObjectName("qtw_output")
-        self.qtw_output.setColumnCount(0)
-        self.qtw_output.setRowCount(0)
         self.verticalLayout_3.addWidget(self.qtw_output)
         self.horizontalLayoutWidget = QtGui.QWidget(CalcDialog)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 220, 111, 29))

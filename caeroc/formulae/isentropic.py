@@ -100,6 +100,16 @@ class Isentropic(FormulaeBase):
             self.store('M', M)
         return M
 
+    def calculate(self, a, b=None, g=1.4):
+        """Calculates all possible data using inputs a and b"""
+        self.p_p0(a,g)
+        self.rho_rho0(a,g)
+        self.t_t0(a,g)
+        self.a_at(a,g)
+        self.p_pt(a,g)
+        self.rho_rhot(a,g)
+        self.t_tt(a,g)
+        
 
 class Expansion(FormulaeBase):
     """Isentropic expansion fan flow relations"""

@@ -1,22 +1,17 @@
 import sys
+from caeroc.gui import runtime
 try:
-    from PySide.QtCore import Slot
-    from PySide.QtGui import QDialog, QApplication
-    from caeroc.gui.base_pyside import Ui_CalcDialog
+    from PySide.QtGui import QApplication as _QtApp
 except ImportError:
-    from PyQt5.QtCore import pyqtSlot as Slot
-    from PyQt5.QtWidgets import QDialog, QApplication
-    from caeroc.gui.base_pyqt import Ui_CalcDialog
-
-from caeroc.gui.runtime import CalcDialog
+    from PyQt5.QtWidgets import QApplication as _QtApp
 
 class CalcApp:
     def __init__(self):
         try:
-            self.app = QApplication(sys.argv)
+            self.app = _QtApp(sys.argv)
         except RuntimeError:
-            self.app = QApplication.instance() # if QApplication already exists 
-        self.dialog = CalcDialog()
+            self.app = _QtApp.instance() # if QApplication already exists 
+        self.dialog = runtime.CalcDialog()
         
     def run(self):
 	self.dialog.show()

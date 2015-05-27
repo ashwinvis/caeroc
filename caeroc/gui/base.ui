@@ -187,7 +187,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="qtw_output"/>
+     <widget class="QTableView" name="qtw_output"/>
     </item>
    </layout>
   </widget>
@@ -217,15 +217,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>buttonBox</zorder>
-  <zorder>verticalLayoutWidget_2</zorder>
-  <zorder>line</zorder>
-  <zorder>verticalFrame</zorder>
-  <zorder>verticalLayoutWidget_3</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>qpb_calculate</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_4</zorder>
  </widget>
  <resources/>
  <connections>
