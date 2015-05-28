@@ -34,7 +34,7 @@ class CalcDialog(QDialog):
         self.gamma = 1.4
 
     def _setupModel(self):
-        self.model = QStandardItemModel(8, 2, self)
+        self.model = QStandardItemModel(10, 2, self)
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
     
@@ -58,11 +58,19 @@ class CalcDialog(QDialog):
 
     @Slot()
     def on_qpb_calculate_released(self):
-        self.mode.calculate(self.input1, self.input2, self.gamma)
+        self.key1 = 'M'
+        self.key2 = None
+        if self.key2 is None:
+            kwargs = {self.key1:self.input1, 'gamma':self.gamma}
+        else:
+            kwargs = {self.key1:self.input1, self.key2:self.input2, 'gamma':self.gamma}
+
+        self.mode.calculate(**kwargs)
+        
+        # ------ Fill table --------------
         self.model.removeRows(0,
                               self.model.rowCount(QtCore.QModelIndex()),
                               QtCore.QModelIndex())
-
         row = 0
         for k in self.mode.keys:
             if self.mode.data[k]: #Not empty

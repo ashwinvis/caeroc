@@ -62,36 +62,32 @@ class Isentropic(FormulaeBase):
         return ans
 
     def mach(self, p_p0=None, rho_rho0=None, t_t0=None,
-             a_a0=None, A_At=None, gamma=1.4, store=True):
+             A_At=None, gamma=1.4, store=True):
         if gamma is None:
             g = self.gamma
         else:
             g = gamma
 
         if p_p0 is not None:
-            self.store('p_p0', p_p0) 
-            M = np.sqrt(2. * ((1./np.powerer(p_p0, (g-1.)/g)) - 1.) / (g-1.))
+            M = np.sqrt(2. * ((1./np.power(p_p0, (g-1.)/g)) - 1.) / (g-1.))
 
         elif rho_rho0 is not None:
-            self.store('rho_rho0', rho_rho0) 
-            M = np.sqrt(2. * ((1./np.powerer(rho_rho0, (g-1.))) - 1.) / (g-1.))
+            M = np.sqrt(2. * ((1./np.power(rho_rho0, (g-1.))) - 1.) / (g-1.))
 
         elif t_t0 is not None:
-            self.store('t_t0', t_t0) 
             M = np.sqrt(2. * ((1./t_t0)-1.)/(g-1.))
 
-        elif A_At is not None:
-            self.store('A_At', A_At) 
-            if self.data['M'] is None:
+        elif A_At is not None:         # Make sure a guess value is given. TODO: Improve
+            if not self.data['M']:
                 mnew = 1e-4
             else:
-                mnew=self.data['M']
+                mnew=self.data['M'].pop()
             m=0.0
             while( abs(mnew-m) > 1e-6):
               m=mnew
-              phi=self.a_as(m,g)
+              phi=self.a_at(m,g,False)
               s=(3. - g) / (1. + g)
-              mnew=m - (phi - A_At) / (np.powerer(phi * m,s) - phi / m)
+              mnew=m - (phi - A_At) / (np.power(phi * m,s) - phi / m)
             M = m     
         else:
             raise ValueError('Insufficient data to calculate Mach number')
@@ -100,16 +96,41 @@ class Isentropic(FormulaeBase):
             self.store('M', M)
         return M
 
-    def calculate(self, a, b=None, g=1.4):
-        """Calculates all possible data using inputs a and b"""
-        self.p_p0(a,g)
-        self.rho_rho0(a,g)
-        self.t_t0(a,g)
-        self.a_at(a,g)
-        self.p_pt(a,g)
-        self.rho_rhot(a,g)
-        self.t_tt(a,g)
+    def calculate(self, M=None, p_p0=None, rho_rho0=None, t_t0=None, A_At=None, gamma=1.4):
+        """
+        Wrapper function to calculate all possible data and store
+        using keywords and values in the dictionary kwargs.
+
+        Parameters
+        ----------
+        M, p_p0, rho_rho0, t_t0, A_At : float
+            Input parameters to calculate, optional but specify one.
+        gamma : float
+            Isentropic index, optional.
         
+        .. TODO: must make it more generic
+        """
+        if M:
+            mach = M
+            self.store('M', mach)
+        else:
+            kwargs = {'p_p0':p_p0, 'rho_rho0':rho_rho0, 't_t0':t_t0,
+                      'A_At':A_At, 'gamma':gamma, 'store':True}
+            mach = self.mach(**kwargs)
+        
+        if mach is None:
+            raise ValueError('Cannot calculate data without one of these inputs:' +
+                             'M, p_p0, rho_rho0, t_t0, A_At')
+        self.p_p0(mach)
+        self.rho_rho0(mach)
+        self.t_t0(mach)
+        self.a_at(mach)
+        self.p_pt(mach)
+        self.rho_rhot(mach)
+        self.t_tt(mach)
+        self.macht(mach)
+
+        return self.data
 
 class Expansion(FormulaeBase):
     """Isentropic expansion fan flow relations"""

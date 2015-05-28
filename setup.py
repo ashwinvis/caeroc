@@ -78,7 +78,7 @@ setup(name='caeroc',
       # },
       install_requires=['numpy', 'matplotlib'],
       extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
-      scripts=[]
+      scripts=['bin/caeroc-app']
       )
 """
       cmdclass={"build_ext": build_ext}
