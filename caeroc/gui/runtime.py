@@ -3,7 +3,7 @@ from caeroc import formulae
 try:
     from PySide import QtCore
     from PySide.QtCore import Slot
-    from PySide.QtGui import QDialog, QStandardItemModel
+    from PySide.QtGui import QDialog, QStandardItemModel, QApplication
     from caeroc.gui.base_pyside import Ui_CalcDialog
 except ImportError:
     from PyQt5 import QtCore
@@ -22,50 +22,70 @@ class CalcDialog(QDialog):
         self.ui = Ui_CalcDialog()
         self.ui.setupUi(self)
         # ----------Input------------
+        self.key1 = self.ui.qcb1_input
+        self.key2 = self.ui.qcb2_input
         self._default_values()
         # ---------Output------------
         self.table = self.ui.qtw_output
         self._setupModel()
 
     def _default_values(self):
-        self.mode = formulae.isentropic.Isentropic()
-        self.input1 = None
-        self.input2 = None
+        self.on_qrb1_isen_pressed()
+        self.input1 = 1.0
+        self.input2 = 0.0
         self.gamma = 1.4
+        self.autocalc = False
 
     def _setupModel(self):
         self.model = QStandardItemModel(10, 2, self)
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
-    
+
     @Slot()
     def on_qrb1_isen_pressed(self):
         self.mode = formulae.isentropic.Isentropic()
+        self.key1_legend = {'M':'M','p/p0':'p_p0','rho/rho0':'rho_rho0',
+                            'T/T0':'t_t0','A/A*(sub)':'A_At','A/A*(sup)':'A_At'}
+        self.key2_legend = {'-':None}
+        self.key1.addItems(self.key1_legend.keys())
+        self.key2.addItems(self.key2_legend.keys())
         print 'MODE: '+self.mode.__doc__
 
     @Slot(float)
     def on_qdsb1_input_valueChanged(self, value):
         self.input1 = value
+        if self.autocalc:
+            self.on_qpb_calculate_released()
 
     @Slot(float)
     def on_qdsb2_input_valueChanged(self, value):
         self.input2 = value
+        if self.autocalc:
+            self.on_qpb_calculate_released()
 
     @Slot(float)
-    def on_qle_gamma_valueChanged():
+    def on_qdsb_gamma_valueChanged(self, value):
         self.gamma = value
-        print value
+        if self.autocalc:
+            self.on_qpb_calculate_released()
+
+    @Slot()
+    def on_checkBox_stateChanged(self):
+        self.autocalc = not self.autocalc
+        print 'Auto calculate: ',self.autocalc
 
     @Slot()
     def on_qpb_calculate_released(self):
-        self.key1 = 'M'
-        self.key2 = None
-        if self.key2 is None:
-            kwargs = {self.key1:self.input1, 'gamma':self.gamma}
+        key1 = self.key1_legend[self.key1.currentText()]
+        key2 = self.key2_legend[self.key2.currentText()]
+        if key2 is None:
+            kwargs = {key1:self.input1, 'gamma':self.gamma}
         else:
-            kwargs = {self.key1:self.input1, self.key2:self.input2, 'gamma':self.gamma}
+            kwargs = {key1:self.input1, key2:self.input2, 'gamma':self.gamma}
 
+        print kwargs
         self.mode.calculate(**kwargs)
+        print self.mode.data
         
         # ------ Fill table --------------
         self.model.removeRows(0,
@@ -78,7 +98,7 @@ class CalcDialog(QDialog):
                 self.model.setData(self.model.index(row, 0, QtCore.QModelIndex()),
                                     k)
                 self.model.setData(self.model.index(row, 1, QtCore.QModelIndex()),
-                                    self.mode.data[k].pop())
+                                    str(self.mode.data[k].pop()))
                 row += 1
 
         self.table.setModel(self.model)

@@ -29,11 +29,14 @@ profiles
 """
 
 from caeroc import formulae, profiles
-
 from caeroc._version import __version__
 
-# To avoid error if PySide was not installed
+# To avoid error if PySide/PyQt5 was not installed
 try:
     from caeroc import gui
 except ImportError:
     pass
+
+def launch():
+    gui.CalcApp().run()
+    

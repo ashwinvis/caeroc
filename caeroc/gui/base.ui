@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>541</height>
+    <width>439</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>480</y>
+     <x>230</x>
+     <y>520</y>
      <width>191</width>
      <height>32</height>
     </rect>
@@ -35,7 +35,7 @@
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>10</y>
      <width>113</width>
      <height>201</height>
@@ -44,8 +44,18 @@
    <layout class="QVBoxLayout" name="qvbl_mode">
     <item>
      <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Choos a formula set</string>
+      </property>
       <property name="text">
-       <string>1. Mode</string>
+       <string> Mode</string>
       </property>
      </widget>
     </item>
@@ -61,10 +71,18 @@
       <property name="text">
        <string>Isentropic</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item>
      <widget class="QRadioButton" name="qrb2_expa">
+      <property name="font">
+       <font>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
       <property name="text">
        <string>Expansion</string>
       </property>
@@ -104,8 +122,8 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>460</y>
-     <width>481</width>
+     <y>500</y>
+     <width>401</width>
      <height>16</height>
     </rect>
    </property>
@@ -117,39 +135,24 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>350</y>
-     <width>481</width>
-     <height>101</height>
+     <y>380</y>
+     <width>401</width>
+     <height>121</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QPushButton" name="qpb_calculate">
-      <property name="text">
-       <string>Calculate!</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <layout class="QFormLayout" name="qfl_input">
-      <item row="0" column="0">
-       <widget class="QComboBox" name="qcb1_input"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="qdsb1_input"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QComboBox" name="qcb2_input"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="qdsb2_input"/>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+        <underline>false</underline>
+       </font>
+      </property>
       <property name="text">
-       <string>2. Input</string>
+       <string>Input</string>
       </property>
      </widget>
     </item>
@@ -160,6 +163,71 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0" rowspan="4">
+     <layout class="QFormLayout" name="qfl_input">
+      <item row="0" column="0">
+       <widget class="QComboBox" name="qcb1_input"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="qdsb1_input">
+        <property name="decimals">
+         <number>8</number>
+        </property>
+        <property name="maximum">
+         <double>999.990000000000009</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="qdsb2_input">
+        <property name="decimals">
+         <number>8</number>
+        </property>
+        <property name="minimum">
+         <double>-99.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QComboBox" name="qcb2_input"/>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="qpb_calculate">
+      <property name="text">
+       <string>Calculate!</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QCheckBox" name="checkBox">
+      <property name="toolTip">
+       <string>Auto-updates the result as the input is changed</string>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Auto-Calculate</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget_3">
@@ -167,15 +235,29 @@
     <rect>
      <x>140</x>
      <y>10</y>
-     <width>361</width>
-     <height>321</height>
+     <width>281</width>
+     <height>361</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="toolTip">
+       <string>Tabulated output</string>
+      </property>
       <property name="text">
-       <string>3. Result</string>
+       <string>Result</string>
       </property>
      </widget>
     </item>
@@ -187,31 +269,44 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableView" name="qtw_output"/>
+     <widget class="QTableView" name="qtw_output">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>220</y>
+     <x>20</x>
+     <y>340</y>
      <width>111</width>
-     <height>29</height>
+     <height>41</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="topMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QLabel" name="label_2">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="text">
        <string>ɣ =</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="qle_gamma">
-      <property name="text">
-       <string>1.4</string>
+     <widget class="QDoubleSpinBox" name="qdsb_gamma">
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.400000000000000</double>
       </property>
      </widget>
     </item>
