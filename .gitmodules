@@ -1,0 +1,3 @@
+[submodule "scikit-aero"]
+	path = scikit-aero
+	url = https://github.com/jadelord/scikit-aero.git
