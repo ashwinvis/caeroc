@@ -1,11 +1,17 @@
 # Caeroc Installer
 # ----------------
 
+ver := $(shell python2 -c 'from caeroc import __version__; print __version__')
+
 install:
 	python setup.py install
+	cd scikit-aero && python setup.py install
+	cd caeroc/gui/ && ./configure
 
-dev:
+develop:
 	python setup.py develop
+	cd scikit-aero && python setup.py develop
+	cd caeroc/gui/ && ./configure
 
 clean:
 	find caeroc -name "*.so" -delete
@@ -16,3 +22,6 @@ tests:
 
 help:
 	cat ./Makefile
+
+tag_version:
+	git tag -a $(ver)

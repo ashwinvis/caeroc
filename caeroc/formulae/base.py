@@ -1,26 +1,27 @@
 import numpy as np
 
+
 class FormulaeBase(object):
     """Data management class for all flow quantities"""
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         # self.keys = []
         self.data = {}
-        self.minima = {} 
+        self.minima = {}
         self.maxima = {}
-        self.gamma = 1.4
         self._init_dataminmax()
+        super(FormulaeBase, self).__init__(*args, **kwargs)
 
     def _init_dataminmax(self):
         """
-        Initializes the data dictionary and the theoretical minima and maxima 
+        Initializes the data dictionary and the theoretical minima and maxima
         for flow quantities.
         """
         keys = self.keys
         if keys.__len__() is 0:
             raise ValueError('Unintialized list of keys')
 
-        key_mach = ['M','M1', 'M2', 'M1n', 'M2n']
-        key_ratio = ['p_p0','rho_rho0','t_t0']
+        key_mach = ['M', 'M1', 'M2', 'M1n', 'M2n']
+        key_ratio = ['p_p0', 'rho_rho0', 't_t0']
         key_ang = ['pm', 'theta']
         inf = 1e10
 
@@ -49,7 +50,7 @@ class FormulaeBase(object):
 
     def store(self, key, val):
         if key not in self.keys:
-            raise ValueError('Unknown key: %s'%key)
+            raise ValueError('Unknown key: %s' % key)
 
         self._check_limits(key, val)
         self.data[key].append(val)
@@ -57,8 +58,7 @@ class FormulaeBase(object):
     def _check_limits(self, key, val):
         """Checks if the computed value is within the theoretical limits"""
 
-        minimum = self.minima[key] 
-        maximum = self.maxima[key] 
+        minimum = self.minima[key]
+        maximum = self.maxima[key]
         if np.all(val < minimum) or np.all(val > maximum):
-            raise ValueError('%s = %f must be between %d and %d'%(key,val,minimum,maximum))
-
+            raise ValueError('%s = %f must be between %d and %d' % (key, val, minimum, maximum))
