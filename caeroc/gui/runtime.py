@@ -30,26 +30,32 @@ class CalcDialog(QDialog):
         self._setupModel()
 
     def _default_values(self):
-        self.on_qrb1_isen_pressed()
         self.input1 = 1.0
         self.input2 = 0.0
         self.gamma = 1.4
         self.autocalc = False
+        self.mode = None
+        self.on_qrb1_isen_pressed()
 
     def _setupModel(self):
         self.model = QStandardItemModel(10, 2, self)
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
 
+    def _set_mode(self):
+        self.mode = self.Mode(gamma=self.gamma)
+
     @Slot()
     def on_qrb1_isen_pressed(self):
-        self.mode = formulae.isentropic.Isentropic()
-        self.key1_legend = {'M':'M','p/p0':'p_p0','rho/rho0':'rho_rho0',
-                            'T/T0':'t_t0','A/A*(sub)':'A_At','A/A*(sup)':'A_At'}
-        self.key2_legend = {'-':None}
-        self.key1.addItems(self.key1_legend.keys())
-        self.key2.addItems(self.key2_legend.keys())
-        print 'MODE: '+self.mode.__doc__
+        self.Mode = formulae.isentropic.Isentropic
+        if not isinstance(self.mode, self.Mode):
+            self._set_mode()
+            self.key1_legend = {'M':'M','p/p0':'p_p0','rho/rho0':'rho_rho0',
+                                'T/T0':'T_T0','A/A*':'A_Astar'}
+            self.key2_legend = {'-':None}
+            self.key1.addItems(self.key1_legend.keys())
+            self.key2.addItems(self.key2_legend.keys())
+            print 'MODE: '+self.mode.__doc__
 
     @Slot(float)
     def on_qdsb1_input_valueChanged(self, value):
@@ -66,6 +72,7 @@ class CalcDialog(QDialog):
     @Slot(float)
     def on_qdsb_gamma_valueChanged(self, value):
         self.gamma = value
+        self._set_mode()
         if self.autocalc:
             self.on_qpb_calculate_released()
 
@@ -79,9 +86,9 @@ class CalcDialog(QDialog):
         key1 = self.key1_legend[self.key1.currentText()]
         key2 = self.key2_legend[self.key2.currentText()]
         if key2 is None:
-            kwargs = {key1:self.input1, 'gamma':self.gamma}
+            kwargs = {key1:self.input1}
         else:
-            kwargs = {key1:self.input1, key2:self.input2, 'gamma':self.gamma}
+            kwargs = {key1:self.input1, key2:self.input2}
 
         print kwargs
         self.mode.calculate(**kwargs)

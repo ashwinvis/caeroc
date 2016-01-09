@@ -2,7 +2,7 @@ import numpy as np
 
 class FormulaeBase(object):
     """Data management class for all flow quantities"""
-    def __init__(self):
+    def __init__(self, **kwargs):
         # self.keys = []
         self.data = {}
         self.minima = {} 
@@ -59,6 +59,6 @@ class FormulaeBase(object):
 
         minimum = self.minima[key] 
         maximum = self.maxima[key] 
-        if val < minimum or val > maximum:
+        if np.all(val < minimum) or np.all(val > maximum):
             raise ValueError('%s = %f must be between %d and %d'%(key,val,minimum,maximum))
 

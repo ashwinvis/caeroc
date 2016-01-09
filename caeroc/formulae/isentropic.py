@@ -1,147 +1,218 @@
 import numpy as np
+import skaero.gasdynamics.isentropic as sk
 from caeroc.formulae.base import FormulaeBase
+from caeroc.util.decorators import storeresult
 
-
-class Isentropic(FormulaeBase):
+class Isentropic(FormulaeBase, sk.IsentropicFlow):
     """Isentropic flow relations for quasi 1D flows"""
-    def __init__(self):
-        self.keys = ['M','p_p0', 'rho_rho0', 't_t0',
-                     'Mt', 'p_pt', 'rho_rhot', 't_tt', 'A_At']
-        super(Isentropic, self).__init__()
 
-    def p_p0(self,M, gamma=1.4,store=True):
-        ans = self.t_t0(M, gamma,False) ** (gamma / (gamma - 1))
-        if store:
-            self.store('p_p0', ans)
-        return ans
-        
-    def rho_rho0(self,M, gamma=1.4,store=True):
-        ans = self.t_t0(M, gamma,False) ** (1 / (gamma - 1))
-        if store:
-            self.store('rho_rho0', ans)
-        return ans
-
-    def t_t0(self,M,gamma=1.4,store=True):
-        ans = (1+(gamma-1)/2 * M**2) ** -1
-        if store:
-            self.store('t_t0', ans)
-        return ans
-        
-    def macht(self,M,gamma=1.4, store=True):
-        ans = ((gamma + 1)/(gamma - 1) * (1./M**2/(gamma -1) + 0.5))**(-0.5)
-        if store:
-            self.store('Mt', ans)
-        return ans
-        
-    def p_pt(self, M, gamma=1.4, store=True):
-        ans = self.p_p0(M,gamma,False) * np.power((gamma/2. + .5),
-                                                gamma/(gamma-1.))
-        if store:
-            self.store('p_pt', ans)
-        return ans
-        
-    def rho_rhot(self, M, gamma=1.4, store=True):
-        ans = self.rho_rho0(M,gamma,False) * np.power((gamma/2. + .5),
-                                                1./(gamma-1.))
-        if store:
-            self.store('rho_rhot', ans)
-        return ans
+    def __init__(self, gamma=1.4):
+        self.keys = ['M','p_p0', 'rho_rho0', 'T_T0',
+                     'Mt', 'p_pt', 'rho_rhot', 'T_Tt', 'A_Astar']
+        super(Isentropic, self).__init__(gamma=gamma)
     
-    def t_tt(self, M, gamma=1.4,store=True):
-        ans = self.t_t0(M,gamma,False) * (gamma/2. + .5)
-        if store:
-            self.store('t_tt', ans)
-        return ans
+    @storeresult
+    def p_p0(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        Notes
+        -------
+        .. math::
+           \dfrac{p}{p_0} = \dfrac{T}{T_0} ^ (\gamma / (\gamma - 1))
+
+        """
+        return super(Isentropic,self).p_p0(M)
         
+    @storeresult
+    def rho_rho0(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        Notes
+        -------
+        ..  math:: 
+            \dfrac{\rho}{\rho_0} = \dfrac{T}{T_0} ^ (1 / (\gamma - 1))
+
+        """
+        return super(Isentropic,self).rho_rho0(M)
+
+    @storeresult
+    def T_T0(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        Notes
+        -------
+        ..  math:: 
+            \dfrac{T}{T_0} = (1+(\gamma-1)/2 * M^2) ^ {-1}
+        
+        """
+        return super(Isentropic,self).T_T0(M)
+        
+    @storeresult
+    def Mt(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        Notes
+        -------
+        ..  math:: 
+            M^* = ((\gamma + 1)/(\gamma - 1) * (1./M^2/(\gamma -1) + 0.5))^(-0.5)
+
+        """
+        return ((self.gamma + 1) / (self.gamma - 1) * 
+                (1. / M ** 2 / (self.gamma -1) + 0.5)) ** (-0.5)
+        
+    @storeresult
+    def p_pt(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        """
+        g = self.gamma
+        return super(Isentropic,self).p_p0(M) * np.power((g / 2. + .5),
+                                                         g / (g - 1.))
+        
+    @storeresult
+    def rho_rhot(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
+
+        """
+        g = self.gamma
+        return super(Isentropic,self).rho_rho0(M) * np.power((g /2. + .5),
+                                                             1. / (g - 1.))
     
-    def a_at(self, M, gamma=1.4, store=True):
-        ans = 1./M * np.sqrt(2./(gamma+1) / self.t_t0(M,gamma,False)
-                             ) ** ((gamma+1)/(gamma-1))
-        if store:
-            self.store('A_At', ans)
-        return ans
+    @storeresult
+    def T_Tt(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
 
-    def mach(self, p_p0=None, rho_rho0=None, t_t0=None,
-             A_At=None, gamma=1.4, store=True):
-        if gamma is None:
-            g = self.gamma
-        else:
-            g = gamma
+        """
+        g = self.gamma
+        return super(Isentropic,self).T_T0(M) * (g / 2. + .5)
+    
+    @storeresult
+    def A_Astar(self, M, *args, **kwargs):
+        """
+        Parameters
+        ----------
+        M : array_like
+            Mach number.
+        store : bool
+            If set as true stores the result in self.data. Optional.
 
+        Notes
+        ------
+        .. math::
+           \dfrac{A}{A^*} = \dfrac{1}{M} 
+                            \sqrt{\dfrac{2}{(gamma+1} / \dfrac{T}{T_0}(M)
+                                     } ^ {(gamma+1)/(gamma-1)}
+
+        """
+        return super(Isentropic,self).A_Astar(M)
+
+    @storeresult
+    def M(self, p_p0=None, rho_rho0=None, T_T0=None, A_Astar=None, *args, **kwargs):
+        """
+        Computes Mach number when one of the arguments are specified
+
+        """
+        g = self.gamma
         if p_p0 is not None:
             M = np.sqrt(2. * ((1./np.power(p_p0, (g-1.)/g)) - 1.) / (g-1.))
-
         elif rho_rho0 is not None:
             M = np.sqrt(2. * ((1./np.power(rho_rho0, (g-1.))) - 1.) / (g-1.))
-
-        elif t_t0 is not None:
+        elif T_T0 is not None:
             M = np.sqrt(2. * ((1./t_t0)-1.)/(g-1.))
-
-        elif A_At is not None:         # Make sure a guess value is given. TODO: Improve
-            if not self.data['M']:
-                mnew = 1e-4
-            else:
-                mnew=self.data['M'].pop()
-            m=0.0
-            while( abs(mnew-m) > 1e-6):
-              m=mnew
-              phi=self.a_at(m,g,False)
-              s=(3. - g) / (1. + g)
-              mnew=m - (phi - A_At) / (np.power(phi * m,s) - phi / m)
-            M = m     
+        elif A_Astar is not None:
+            Msub, Msup = sk.mach_from_area_ratio(A_Astar)
+            M = np.array([Msub, Msup])
         else:
             raise ValueError('Insufficient data to calculate Mach number')
-            
-        if store:
-            self.store('M', M)
-        return M
 
-    def calculate(self, M=None, p_p0=None, rho_rho0=None, t_t0=None, A_At=None, gamma=1.4):
+        return M
+            
+    def calculate(self, M=None, p_p0=None, rho_rho0=None, T_T0=None, A_Astar=None):
         """
         Wrapper function to calculate all possible data and store
         using keywords and values in the dictionary kwargs.
 
         Parameters
         ----------
-        M, p_p0, rho_rho0, t_t0, A_At : float
+        M, p_p0, rho_rho0, t_t0, A_At : array_like
             Input parameters to calculate, optional but specify one.
-        gamma : float
-            Isentropic index, optional.
         
-        .. TODO: must make it more generic
         """
         if M:
             mach = M
             self.store('M', mach)
         else:
-            kwargs = {'p_p0':p_p0, 'rho_rho0':rho_rho0, 't_t0':t_t0,
-                      'A_At':A_At, 'gamma':gamma, 'store':True}
-            mach = self.mach(**kwargs)
+            kwargs = {'p_p0':p_p0, 'rho_rho0':rho_rho0, 'T_T0':T_T0,
+                    'A_Astar':A_Astar, 'store':True}
+            mach = self.M(**kwargs)
         
         if mach is None:
             raise ValueError('Cannot calculate data without one of these inputs:' +
-                             'M, p_p0, rho_rho0, t_t0, A_At')
-        self.p_p0(mach)
-        self.rho_rho0(mach)
-        self.t_t0(mach)
-        self.a_at(mach)
-        self.p_pt(mach)
-        self.rho_rhot(mach)
-        self.t_tt(mach)
-        self.macht(mach)
+                             'M, p_p0, rho_rho0, T_T0, A_Astar')
+
+        self.p_p0(mach, True)
+        self.rho_rho0(mach, True)
+        self.T_T0(mach, True)
+        self.p_pt(mach, True)
+        self.rho_rhot(mach, True)
+        self.T_Tt(mach, True)
+        self.A_Astar(mach, True)
+        self.Mt(mach, True)
 
         return self.data
 
-class Expansion(FormulaeBase):
+class Expansion(FormulaeBase, sk.PrandtlMeyerExpansion):
     """Isentropic expansion fan flow relations"""
 
-    def __init__(self):
+    def __init__(self, gamma=1.4):
         self.keys = ['M1','M2','pm']
-        self.isen = Isentropic()
+        self.isen = Isentropic(gamma=gamma)
         super(Expansion, self).__init__()
 
     def mach1(self, p_p0=None, rho_rho0=None, t_t0=None,
-              A_At=None, pm=None, gamma=1.4, store=True):
+              A_At=None, pm=None, store=True):
         if pm is not None:
             self.store('pm', pm) 
             mnew=2.0
@@ -153,8 +224,8 @@ class Expansion(FormulaeBase):
               mnew=m-fm/fdm               
             M1 = m
         else:
-            M1 = self.isen.mach(p_p0, rho_rho0, t_t0,
-                                A_At, gamma,store=False)
+            M1 = self.isen.M(p_p0, rho_rho0, t_t0,
+                             A_At, gamma, store=False)
         
         if store:
             self.store('M1',M1)            

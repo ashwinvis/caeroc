@@ -76,7 +76,7 @@ setup(name='caeroc',
       # package_data={
       #     'sample': ['package_data.dat'],
       # },
-      install_requires=['numpy', 'matplotlib'],
+      install_requires=['numpy', 'matplotlib', 'scikit-aero'],
       extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
       scripts=['bin/caeroc-app']
       )
