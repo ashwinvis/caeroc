@@ -2,28 +2,30 @@ caeroc
 ======
 Compressible Aerodynamics Calculator for Python
 -----------------------------------------------
-
-:Name: caeroc
-:Website: https://github.com/jadelord/caeroc
-:Author: Ashwin Vishnu
-:Version: 0.0.2a
+![alpha](https://img.shields.io/badge/caeroc-v0.0.2a-green.svg) 
+[![LICENSE](https://img.shields.io/badge/license-GPL-blue.svg)](/LICENSE)
 
 A python package for compressible flows. A dynamic toolkit which enables you to make use of the formulae governing compressible flows.
 
+Installation
+------------
+```bash
+make install
+```
+
 Features
 --------
-* Command-line tool **caeroc-app** which opens a GUI calculator
+- [x] Command-line tool which opens a Qt based GUI calculator
 
-Objectives
-----------
-* Save data as a database
-* Plotting graphs
-* Generate gas tables
-* Calculate flow characteristics: Coefficient of pressure, lift and drag for basic profiles.
-
-Qt5 GUI calculator: caeroc-app 
---------------------------------
+```bash
+caeroc-app
+```
 ![In development](http://i.imgur.com/7Bb0ypN.png)
+
+- [ ] Save data as a database
+- [ ] Plotting graphs
+- [ ] Generate gas tables
+- [ ] Calculate flow characteristics: Coefficient of pressure, lift and drag for basic profiles.
 
 Courtesy
 --------
