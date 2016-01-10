@@ -3,3 +3,5 @@
 *.swo
 .spyder*
 caeroc.egg-info/*
+caeroc/gui/base_pyqt.py
+caeroc/gui/base_pyside.py

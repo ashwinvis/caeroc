@@ -45,22 +45,55 @@ class CalcDialog(QDialog):
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
 
-    def _set_mode(self):
-        self.mode = self.Mode(gamma=self.gamma)
+    def _set_mode_with_keys_and_attrs(self, key1_to_attr, key2_to_attr,
+                                      extra_attr_to_key):
+        if not isinstance(self.mode, self.Mode):
+            self.mode = self.Mode(gamma=self.gamma)
+            self.key1.clear()
+            self.key2.clear()
+            self.key1_to_attr = key1_to_attr
+            self.key2_to_attr = key2_to_attr
+            self._set_attr_to_key(extra_attr_to_key)
+            self.key1.addItems(self.key1_to_attr.keys())
+            self.key2.addItems(self.key2_to_attr.keys())
+            print('MODE: {}'.format(self.mode.__doc__))
+
+    def _set_attr_to_key(self, extra=None):
+        self.attr_to_key = {v: k for k, v in self.key1_to_attr.items()}
+        self.attr_to_key.update({v: k for k, v in self.key2_to_attr.items()})
+        self.attr_to_key.update(extra)
 
     @Slot()
     def on_qrb1_isen_pressed(self):
         self.Mode = formulae.isentropic.Isentropic
-        if not isinstance(self.mode, self.Mode):
-            self._set_mode()
-            self.key1_legend = {'M': 'M', 'p/p0': 'p_p0', u'ρ/ρ0': 'rho_rho0',
-                                'T/T0': 'T_T0', 'A/A*': 'A_Astar'}
-            self.invkey1_legend = {v: k for k, v in self.key1_legend.items()}
-            self.invkey1_legend.update({'Mt': 'M*', 'p_pt': 'p/p*', 'rho_rhot': u'ρ/ρ*', 'T_Tt': 'T/T*'})
-            self.key2_legend = {'-': None}
-            self.key1.addItems(self.key1_legend.keys())
-            self.key2.addItems(self.key2_legend.keys())
-            print('MODE: {}'.format(self.mode.__doc__))
+        key1_to_attr = {'M': 'M',
+                        u'p/p\u2080': 'p_p0',
+                        u'ρ/ρ\u2080': 'rho_rho0',
+                        u'T/T\u2080': 'T_T0',
+                        'A/A*': 'A_Astar'}
+        key2_to_attr = {'-': None}
+        extra_attr_to_key = {'Mt': 'M*',
+                             'p_pt': 'p/p*',
+                             'rho_rhot': u'ρ/ρ*',
+                             'T_Tt': 'T/T*'}
+        self._set_mode_with_keys_and_attrs(key1_to_attr, key2_to_attr,
+                                           extra_attr_to_key)
+
+    @Slot()
+    def on_qrb2_expa_pressed(self):
+        self.Mode = formulae.isentropic.Expansion
+        key1_to_attr = {u'θ (deg)': 'theta_deg',
+                        u'θ (rad)': 'theta_rad'}
+        key2_to_attr = {u'M\u2081': 'M_1',
+                        u'ν\u2081 (rad)': 'nu_1'}
+        extra_attr_to_key = {'theta': u'θ (rad)',
+                             'M_2': u'M\u2082',
+                             'nu_2': u'ν\u2082 (rad)',
+                             'p2_p1': u'p\u2082/p\u2081',
+                             'rho2_rho1': u'ρ\u2082/ρ\u2081',
+                             'T2_T1': u'T\u2082/T\u2081'}
+        self._set_mode_with_keys_and_attrs(key1_to_attr, key2_to_attr,
+                                           extra_attr_to_key)
 
     @Slot(float)
     def on_qdsb1_input_valueChanged(self, value):
@@ -89,12 +122,12 @@ class CalcDialog(QDialog):
 
     @Slot()
     def on_qpb_calculate_released(self):
-        key1 = self.key1_legend[self.key1.currentText()]
-        key2 = self.key2_legend[self.key2.currentText()]
-        if key2 is None:
-            kwargs = {key1: self.input1}
+        attr1 = self.key1_to_attr[self.key1.currentText()]
+        attr2 = self.key2_to_attr[self.key2.currentText()]
+        if attr2 is None:
+            kwargs = {attr1: self.input1}
         else:
-            kwargs = {key1: self.input1, key2: self.input2}
+            kwargs = {attr1: self.input1, attr2: self.input2}
 
         print(kwargs)
         self.mode.calculate(**kwargs)
@@ -105,13 +138,13 @@ class CalcDialog(QDialog):
                               self.model.rowCount(QtCore.QModelIndex()),
                               QtCore.QModelIndex())
         row = 0
-        for k in self.mode.keys:
-            if self.mode.data[k]:  # Not empty
+        for attr in self.mode.keys:
+            if self.mode.data[attr]:  # Not empty
                 self.model.insertRows(row, 1, QtCore.QModelIndex())
                 self.model.setData(self.model.index(row, 0, QtCore.QModelIndex()),
-                                   self.invkey1_legend[k])
+                                   self.attr_to_key[attr])
                 self.model.setData(self.model.index(row, 1, QtCore.QModelIndex()),
-                                   str(self.mode.data[k].pop()))
+                                   str(self.mode.data[attr].pop()))
                 row += 1
         self.table.setModel(self.model)
         self.table.resizeColumnsToContents()

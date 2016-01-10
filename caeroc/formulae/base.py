@@ -20,9 +20,9 @@ class FormulaeBase(object):
         if keys.__len__() is 0:
             raise ValueError('Unintialized list of keys')
 
-        key_mach = ['M', 'M1', 'M2', 'M1n', 'M2n']
-        key_ratio = ['p_p0', 'rho_rho0', 't_t0']
-        key_ang = ['pm', 'theta']
+        key_mach = ['M', 'M_1', 'M_2', 'M_1n', 'M_2n']
+        key_ratio = ['p_p0', 'rho_rho0', 'T_T0']
+        key_ang = ['nu', 'theta']
         inf = 1e10
 
         for k in keys:
