@@ -1,4 +1,5 @@
 import numpy as np
+from ..logger import logger
 
 
 class FormulaeBase(object):
@@ -9,7 +10,10 @@ class FormulaeBase(object):
         self.minima = {}
         self.maxima = {}
         self._init_dataminmax()
-        super(FormulaeBase, self).__init__(*args, **kwargs)
+        try:
+            super(FormulaeBase, self).__init__(*args, **kwargs)
+        except ValueError as e:
+            logger.critical(e)
 
     def _init_dataminmax(self):
         """
@@ -61,4 +65,4 @@ class FormulaeBase(object):
         minimum = self.minima[key]
         maximum = self.maxima[key]
         if np.all(val < minimum) or np.all(val > maximum):
-            raise ValueError('%s = %f must be between %d and %d' % (key, val, minimum, maximum))
+            logger.error('%s = %f must be between %d and %d' % (key, val, minimum, maximum))

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'base.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.9.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -92,7 +92,7 @@ class Ui_CalcDialog(object):
         self.qdsb2_input.setDecimals(8)
         self.qdsb2_input.setMinimum(-99.0)
         self.qdsb2_input.setSingleStep(0.1)
-        self.qdsb2_input.setProperty("value", 0.0)
+        self.qdsb2_input.setProperty("value", 1.0)
         self.qdsb2_input.setObjectName("qdsb2_input")
         self.gridLayout_3.addWidget(self.qdsb2_input, 6, 4, 1, 1)
         self.qcb2_input = QtWidgets.QComboBox(self.inputFrame)
@@ -165,7 +165,7 @@ class Ui_CalcDialog(object):
         self.qrb1_isen.setText(_translate("CalcDialog", "Isen&tropic"))
         self.qrb5_fann.setText(_translate("CalcDialog", "Fanno F&low"))
         self.qrb6_rayl.setText(_translate("CalcDialog", "Ra&yleigh Flow"))
-        self.label.setToolTip(_translate("CalcDialog", "Choos a formula set"))
+        self.label.setToolTip(_translate("CalcDialog", "Choose a formula set"))
         self.label.setText(_translate("CalcDialog", "Mode"))
         self.qrb2_expa.setText(_translate("CalcDialog", "E&xpansion"))
         self.qcb_autocalc.setText(_translate("CalcDialog", "AutoCalculate"))

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'base.ui'
 #
-# Created: Sun Jan 10 20:47:13 2016
+# Created: Sun Nov 12 16:21:39 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -94,7 +94,7 @@ class Ui_CalcDialog(object):
         self.qdsb2_input.setDecimals(8)
         self.qdsb2_input.setMinimum(-99.0)
         self.qdsb2_input.setSingleStep(0.1)
-        self.qdsb2_input.setProperty("value", 0.0)
+        self.qdsb2_input.setProperty("value", 1.0)
         self.qdsb2_input.setObjectName("qdsb2_input")
         self.gridLayout_3.addWidget(self.qdsb2_input, 6, 4, 1, 1)
         self.qcb2_input = QtGui.QComboBox(self.inputFrame)
@@ -165,7 +165,7 @@ class Ui_CalcDialog(object):
         self.qrb1_isen.setText(QtGui.QApplication.translate("CalcDialog", "Isen&tropic", None, QtGui.QApplication.UnicodeUTF8))
         self.qrb5_fann.setText(QtGui.QApplication.translate("CalcDialog", "Fanno F&low", None, QtGui.QApplication.UnicodeUTF8))
         self.qrb6_rayl.setText(QtGui.QApplication.translate("CalcDialog", "Ra&yleigh Flow", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setToolTip(QtGui.QApplication.translate("CalcDialog", "Choos a formula set", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setToolTip(QtGui.QApplication.translate("CalcDialog", "Choose a formula set", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("CalcDialog", "Mode", None, QtGui.QApplication.UnicodeUTF8))
         self.qrb2_expa.setText(QtGui.QApplication.translate("CalcDialog", "E&xpansion", None, QtGui.QApplication.UnicodeUTF8))
         self.qcb_autocalc.setText(QtGui.QApplication.translate("CalcDialog", "AutoCalculate", None, QtGui.QApplication.UnicodeUTF8))

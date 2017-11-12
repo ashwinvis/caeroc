@@ -1,5 +1,6 @@
 import numpy as np
 from skaero.gasdynamics.shocks import _ShockClass
+from ..logger import logger
 from .base import FormulaeBase
 
 
@@ -35,7 +36,7 @@ class NormalShock(FormulaeBase, _ShockClass):
         elif 'M' in kwargs.keys():
             return kwargs['M']
         else:
-            raise ValueError('Insufficient data to calculate Mach number')
+            logger.error('Insufficient data to calculate Mach number')
 
         return M
 
@@ -61,8 +62,8 @@ class NormalShock(FormulaeBase, _ShockClass):
         elif any([v is not None for v in (p2_p1, rho2_rho1, T2_T1)]):
             M_1 = self.M_1(p2_p1, rho2_rho1, T2_T1)
         else:
-            raise ValueError('Insufficient data: M_1 or nu_1' +
-                             'must be specified.')
+            logger.error('Insufficient data: M_1 or nu_1' +
+                         'must be specified.')
 
         self.M_1 = M_1
         super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)

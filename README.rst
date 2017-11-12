@@ -13,16 +13,20 @@ Requirements
 ------------
 - Python 2.7, >=3.4
 - pylab (numpy, scipy and matplotlib)
-- scikit-aero >= 0.2
-- optional, but recommended for GUI: PyQt5 or PySide
-- optional for making tables: pandas
+- ashwinvis/scikit-aero >= 0.2
+- PyQt5 / PySide (optional, but recommended for GUI)
+- pandas (optional: for making tables)
+- colorlog (optional: for coloured log)
 
 Installation
 ------------
-To install from PyPI, run any of the following
+To install from PyPI:
 
 .. code:: bash
 
+    pip install -e git+https://github.com/ashwinvis/scikit-aero.git#egg=scikit-aero
+
+    # Any of the following
     pip install caeroc
     pip install caeroc[pyqt]
     pip install caeroc[pyside]
@@ -31,7 +35,7 @@ To install development versions of ``caeroc`` and ``scikit-aero``
 
 .. code:: bash
 
-    pip install -e https://github.com/ashwinvis/caeroc.git --process-dependency-links --trusted-host github.com
+    pip install -e git+https://github.com/ashwinvis/caeroc.git#egg=caeroc --process-dependency-links --trusted-host github.com
 
 If the current configuration of the GUI does not work for you,
 regenerate it by running:
@@ -50,7 +54,7 @@ Simply run in your terminal
     caeroc-app
 
 Development
-~~~~~~~~~~~
+-----------
 
 Development mode will install ``caeroc`` using soft links.
 

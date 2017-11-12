@@ -1,8 +1,9 @@
 import numpy as np
 from skaero.gasdynamics.isentropic import (IsentropicFlow, PrandtlMeyerExpansion,
                                            mach_from_area_ratio, mach_from_nu)
-from caeroc.formulae.base import FormulaeBase
-from caeroc.util.decorators import storeresult
+from ..util.decorators import storeresult
+from ..logger import logger
+from .base import FormulaeBase
 
 
 class Isentropic(FormulaeBase, IsentropicFlow):
@@ -170,7 +171,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         elif 'M' in kwargs.keys():
             return kwargs['M']
         else:
-            raise ValueError('Insufficient data to calculate Mach number')
+            logger.error('Insufficient data to calculate Mach number')
 
         return M
 
@@ -228,14 +229,14 @@ class Expansion(FormulaeBase, PrandtlMeyerExpansion):
         elif theta_rad:
             self.theta = theta_rad
         else:
-            raise ValueError('Insufficient data: Turn angle must be specified.')
+            logger.error('Insufficient data: Turn angle must be specified.')
 
         if M_1 is None:
             if nu_1 is not None:
                 M_1 = mach_from_nu(nu=nu_1, gamma=self.gamma)
             else:
-                raise ValueError('Insufficient data: M_1 or nu_1' +
-                                 'must be specified.')
+                logger.error('Insufficient data: M_1 or nu_1' +
+                             'must be specified.')
 
         self.M_1 = M_1
         super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)
