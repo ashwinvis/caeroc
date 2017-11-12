@@ -38,4 +38,4 @@ install:
   - pip install -U tox pip setuptools
 
 script:
-  - travis_wait tox -vv
+  - tox -vv

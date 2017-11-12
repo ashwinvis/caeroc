@@ -22,6 +22,7 @@ Installation
 To install from PyPI, run any of the following
 
 .. code:: bash
+
     pip install caeroc
     pip install caeroc[pyqt]
     pip install caeroc[pyside]
