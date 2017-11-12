@@ -22,12 +22,12 @@ formulae
     Governing integral equations for compressible flows organised as various
     classes.
 gui
-    A Qt/PySide based interface to have an user-friendly view.
+    A PyQt/PySide based interface to have an user-friendly view.
 profiles
     Toolkit for making specific calculations for a body.
 
 """
-__version__ = '0.0.2a1'
+__version__ = '0.0.2b0'
 
 
 def launch():

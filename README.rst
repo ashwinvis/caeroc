@@ -4,7 +4,7 @@ caeroc
 Compressible Aerodynamics Calculator for Python
 -----------------------------------------------
 
-|version| |LICENSE|
+|version| |LICENSE| |travis|
 
 A python package for compressible flows. A dynamic toolkit which enables
 you to make use of the formulae governing compressible flows.
@@ -85,3 +85,5 @@ Courtesy
 .. |version| image:: https://img.shields.io/badge/caeroc-v0.0.2a-green.svg
 .. |LICENSE| image:: https://img.shields.io/badge/license-GPL-blue.svg
    :target: /LICENSE
+.. |travis| image:: https://travis-ci.org/ashwinvis/caeroc.svg?branch=master
+   :target: https://travis-ci.org/ashwinvis/caeroc

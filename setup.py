@@ -16,7 +16,6 @@ with open(os.path.join(here, 'README.rst')) as f:
 
 lines = long_description.splitlines(True)
 long_description = ''.join(lines[8:])
-print(long_description)
 
 # Get the version from the relevant file
 d = run_path('caeroc/__init__.py')
@@ -86,6 +85,6 @@ setup(name='caeroc',
       # },
       install_requires=install_requires,
       dependency_links=['http://github.com/ashwinvis/scikit-aero/tarball/master#egg=scikit-aero-0.2.dev0'],
-      extras_require=dict(plot=['pylab','pandas'], ui=['PyQt5']),
+      extras_require=dict(plot=['pylab','pandas'], pyside=['PySide'], pyqt=['PyQt5']),
       scripts=scripts,
       )
