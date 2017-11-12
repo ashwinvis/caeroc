@@ -27,7 +27,7 @@ profiles
     Toolkit for making specific calculations for a body.
 
 """
-__version__ = '0.0.2b0'
+__version__ = '0.0.2b1'
 
 
 def launch():

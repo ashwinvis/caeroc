@@ -88,7 +88,9 @@ Courtesy
    allowing users to dynamically use the formulae for specific cases.
 -  Thanks to the scikit-aero team for being the backend
 
-.. |version| image:: https://img.shields.io/badge/caeroc-v0.0.2a-green.svg
+.. |version| image:: https://img.shields.io/pypi/v/caeroc.svg
+   :target: https://pypi.python.org/pypi/caeroc/
+   :alt: Latest version
 .. |LICENSE| image:: https://img.shields.io/badge/license-GPL-blue.svg
    :target: /LICENSE
 .. |travis| image:: https://travis-ci.org/ashwinvis/caeroc.svg?branch=master
