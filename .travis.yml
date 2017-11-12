@@ -21,9 +21,15 @@ addons:
         packages:
             - xvfb
 
+cache:
+    directories:
+        - $HOME/.cache/pip
+        - $TRAVIS_BUILD_DIR/.tox
+
 # command to install dependencies
 install:
   - pip install . --process-dependency-links --trusted-host github.com
+  - pip install -U tox pip setuptools
 
 script:
   - tox
