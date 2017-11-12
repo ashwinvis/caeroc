@@ -50,8 +50,7 @@ scripts = glob('bin/caeroc*')
 
 setup(name='caeroc',
       version=__version__,
-      description=('Compressible aerodynamics calculator in Python'
-                   'A tool for experiments and simulations.'),
+      description=('Compressible aerodynamics calculator in Python'),
       long_description=long_description,
       keywords='compressible aerodynamics, calculator, gas dynamics',
       author='Ashwin Vishnu Mohanan',
