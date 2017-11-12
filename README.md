@@ -10,7 +10,27 @@ A python package for compressible flows. A dynamic toolkit which enables you to 
 Installation
 ------------
 ```bash
-make install
+git clone https://github.com/ashwinvis/caeroc.git
+cd caeroc
+python setup.py install
+```
+
+If the current configuration of the GUI does not work for you, regenerate it by
+running:
+```bash
+cd caeroc/gui
+./configure
+```
+
+### Development
+Development mode will install `caeroc` using soft links.
+
+```bash
+git clone --recursive https://github.com/ashwinvis/caeroc.git
+cd caeroc
+python setup.py develop
+cd scikit-aero
+python setup.py develop
 ```
 
 Features

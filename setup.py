@@ -76,11 +76,9 @@ setup(name='caeroc',
       # package_data={
       #     'sample': ['package_data.dat'],
       # },
-      install_requires=['numpy', 'matplotlib', 'scikit-aero'],
+      install_requires=[
+          'numpy', 'matplotlib', 'scikit-aero>=0.2'],
+      dependency_links=['http://github.com/ashwinvis/scikit-aero/tarball/master#egg=scikit-aero-0.2.dev0'],
       extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
       scripts=['bin/caeroc-app']
       )
-"""
-      cmdclass={"build_ext": build_ext}
-      ext_modules=None)
-"""
