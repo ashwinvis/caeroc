@@ -1,11 +1,18 @@
 language: python
 python:
   - 2.7
-  - 3.6
 
 env:
   - TOXENV=py-pyqt
   - TOXENV=py-pyside
+
+matrix:
+  include:
+    - python: 3.4
+      env: TOXENV=py-pyside
+
+    - python: 3.6
+      env: TOXENV=py-pyqt
 
 addons:
     apt:
@@ -13,7 +20,6 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - xvfb
-            - qtbase-abi
 
 # command to install dependencies
 install:
