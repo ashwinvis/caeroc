@@ -28,7 +28,7 @@ Development mode will install `caeroc` using soft links.
 git clone --recursive https://github.com/ashwinvis/caeroc.git
 cd caeroc
 python setup.py develop
-cd scikit-aero
+cd ../scikit-aero
 python setup.py develop
 ```
 

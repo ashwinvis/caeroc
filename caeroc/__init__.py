@@ -29,14 +29,7 @@ profiles
 """
 __version__ = '0.0.2a1'
 
-try:
-    # To avoid error during setup
-    from . import formulae, profiles
-    from ._version import __version__
-except ImportError:
-    pass
 
 def launch():
     from . import gui
     gui.CalcApp().run()
-    

@@ -1,5 +1,7 @@
 import os
+import sys
 from runpy import run_path
+from glob import glob
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -37,6 +39,14 @@ except AttributeError:
     else:
         devstatus = 'Development Status :: 5 - Production/Stable'
 
+install_requires=[
+  'numpy', 'scipy', 'matplotlib', 'scikit-aero>=0.2.dev0']
+
+if not sys.platform.startswith('win') and sys.version_info[0] < 3:
+    install_requires.append('subprocess32')
+
+scripts = glob('bin/caeroc*')
+
 setup(name='caeroc',
       version=__version__,
       description=('Compressible aerodynamics calculator in Python'
@@ -72,9 +82,8 @@ setup(name='caeroc',
       # package_data={
       #     'sample': ['package_data.dat'],
       # },
-      install_requires=[
-          'numpy', 'matplotlib', 'scikit-aero>=0.2.dev0'],
+      install_requires=install_requires,
       dependency_links=['http://github.com/ashwinvis/scikit-aero/tarball/master#egg=scikit-aero-0.2.dev0'],
-      extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
-      scripts=['bin/caeroc-app']
+      extras_require=dict(plot=['pylab','pandas'], ui=['PyQt5']),
+      scripts=scripts,
       )

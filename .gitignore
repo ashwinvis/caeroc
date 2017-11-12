@@ -3,3 +3,4 @@
 *.swo
 .spyder*
 caeroc.egg-info/*
+.tox/*

@@ -1,0 +1,21 @@
+language: python
+python:
+  - "2.7-pyqt"
+  - "2.7-pyside"
+  - "3.6-pyqt"
+  - "3.6-pyside"
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - xvfb
+            - qtbase-abi
+
+# command to install dependencies
+install:
+  - pip install . --process-dependency-links --trusted-host github.com
+
+script:
+  - tox
