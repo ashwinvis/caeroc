@@ -27,16 +27,16 @@ profiles
     Toolkit for making specific calculations for a body.
 
 """
+__version__ = '0.0.2a1'
 
-from caeroc import formulae, profiles
-from caeroc._version import __version__
-
-# To avoid error if PySide/PyQt5 was not installed
 try:
-    from caeroc import gui
+    # To avoid error during setup
+    from . import formulae, profiles
+    from ._version import __version__
 except ImportError:
     pass
 
 def launch():
+    from . import gui
     gui.CalcApp().run()
     

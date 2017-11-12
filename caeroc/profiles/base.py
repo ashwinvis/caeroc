@@ -27,12 +27,12 @@ class ProfilesBase:
 
 class Nozzle(ProfilesBase):
     def nozzle(self):
-	"""Converging/Diverging Nozzle"""
-	pass
+        """Converging/Diverging Nozzle"""
+        pass
 
     def lavalnozzle(self):
-	"""Conv. and Div. Nozzle"""
-	pass
+        """Conv. and Div. Nozzle"""
+        pass
 
 class Airfoil(ProfilesBase):
     def airfoil(self):
@@ -78,6 +78,6 @@ class Airfoil(ProfilesBase):
 
 class Duct(ProfilesBase):
     def duct(self):
-	"""Constant area duct/pipe for Fanno & Rayleigh flows"""
-	pass
+        """Constant area duct/pipe for Fanno & Rayleigh flows"""
+        pass
 

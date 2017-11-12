@@ -1,14 +1,7 @@
-
-from setuptools import setup, find_packages
-"""
-try:
-    from Cython.Distutils.extension import Extension
-    from Cython.Distutils import build_ext
-except ImportError:
-    from setuptools import Extension, build_ext
-    from distutils.command import build_ext
-"""
 import os
+from runpy import run_path
+from setuptools import setup, find_packages
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 import sys
@@ -22,7 +15,9 @@ lines = long_description.splitlines(True)
 long_description = ''.join(lines[8:])
 
 # Get the version from the relevant file
-execfile('caeroc/_version.py')
+d = run_path('caeroc/__init__.py')
+__version__ = d['__version__']
+
 # Get the development status from the version string
 from pkg_resources import parse_version
 parsed_version = parse_version(__version__)
@@ -68,16 +63,17 @@ setup(name='caeroc',
           'Programming Language :: Python',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 2.7',
-          # 'Programming Language :: Python :: 3',
-          # 'Programming Language :: Python :: 3.3',
-          # 'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
       ],
       packages=find_packages(exclude=['doc', 'examples']),
       # package_data={
       #     'sample': ['package_data.dat'],
       # },
       install_requires=[
-          'numpy', 'matplotlib', 'scikit-aero>=0.2'],
+          'numpy', 'matplotlib', 'scikit-aero>=0.2.dev0'],
       dependency_links=['http://github.com/ashwinvis/scikit-aero/tarball/master#egg=scikit-aero-0.2.dev0'],
       extras_require=dict(plot=['pylab','pandas'], ui=['PySide']),
       scripts=['bin/caeroc-app']

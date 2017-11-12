@@ -14,8 +14,8 @@ class CalcApp:
         self.dialog = runtime.CalcDialog()
         
     def run(self):
-	self.dialog.show()
-	sys.exit(self.app.exec_())
+        self.dialog.show()
+        sys.exit(self.app.exec_())
 
 
 if __name__ == "__main__":

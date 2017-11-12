@@ -9,7 +9,8 @@ try:
 except ImportError:
     from PyQt5 import QtCore
     from PyQt5.QtCore import pyqtSlot as Slot
-    from PyQt5.QtWidgets import QDialog, QStandardItemModel
+    from PyQt5.QtWidgets import QDialog
+    from PyQt5.QtGui import QStandardItemModel
     from caeroc.gui.base_pyqt import Ui_CalcDialog
 
 
@@ -19,7 +20,7 @@ class CalcDialog(QDialog):
     TODO: Error handling
     """
     def __init__(self, parent=None):
-        QDialog.__init__(elf, parent)
+        QDialog.__init__(self, parent)
 
         self.ui = Ui_CalcDialog()
         self.ui.setupUi(self)

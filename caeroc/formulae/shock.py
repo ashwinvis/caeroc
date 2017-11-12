@@ -1,5 +1,6 @@
 import numpy as np
-from skaero.gasdynamics.shock import _ShockClass
+from skaero.gasdynamics.shocks import _ShockClass
+from .base import FormulaeBase
 
 
 class NormalShock(FormulaeBase, _ShockClass):
@@ -12,7 +13,7 @@ class NormalShock(FormulaeBase, _ShockClass):
         self.gamma = gamma
 
     def M_1(self, M_2=None, p2_p1=None, rho2_rho1=None, T2_T1=None,
-            p02_p01=None, p2_p01=None:
+            p02_p01=None, p2_p01=None):
         """
         Computes Mach number when one of the arguments are specified
 
@@ -28,7 +29,9 @@ class NormalShock(FormulaeBase, _ShockClass):
             c = -2. * (g - 1.)
             M_1, M_11 = np.roots([a, b, c])
         elif p02_p01 is not None:
+            raise NotImplementedError
         elif p2_p01 is not None:
+            raise NotImplementedError
         elif 'M' in kwargs.keys():
             return kwargs['M']
         else:
@@ -37,7 +40,7 @@ class NormalShock(FormulaeBase, _ShockClass):
         return M
 
 
-    def calculate(self, M_1=None, M_2=None
+    def calculate(self, M_1=None, M_2=None,
                   p2_p1=None, rho2_rho1=None, T2_T1=None,
                   p02_p01=None, rho02_rho01=None, T02_T01=None):
         """
@@ -55,11 +58,11 @@ class NormalShock(FormulaeBase, _ShockClass):
         """
         if M_1 is None:
             pass
-        else:
+        elif any([v is not None for v in (p2_p1, rho2_rho1, T2_T1)]):
             M_1 = self.M_1(p2_p1, rho2_rho1, T2_T1)
-            else:
-                raise ValueError('Insufficient data: M_1 or nu_1' +
-                                 'must be specified.')
+        else:
+            raise ValueError('Insufficient data: M_1 or nu_1' +
+                             'must be specified.')
 
         self.M_1 = M_1
         super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)
