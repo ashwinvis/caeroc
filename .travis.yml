@@ -4,9 +4,15 @@ matrix:
   include:
     - python: 2.7
       env: TOXENV=py-pyside
+      addons:
+        apt:
+          packages: [python-pyside]
 
     - python: 3.4
       env: TOXENV=py-pyside
+      addons:
+        apt:
+          packages: [python3-pyside]
 
     - python: 3.5
       env: TOXENV=py-pyqt
