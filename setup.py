@@ -11,10 +11,12 @@ if sys.version_info[:2] < (2, 6) or (3, 0) <= sys.version_info[0:2] < (3, 2):
     raise RuntimeError("Python version 2.6, 2.7 or >= 3.2 required.")
 
 # Get the long description from the relevant file
-with open(os.path.join(here, 'README.md')) as f:
+with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
+
 lines = long_description.splitlines(True)
 long_description = ''.join(lines[8:])
+print(long_description)
 
 # Get the version from the relevant file
 d = run_path('caeroc/__init__.py')

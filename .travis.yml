@@ -1,9 +1,11 @@
 language: python
 python:
-  - "2.7-pyqt"
-  - "2.7-pyside"
-  - "3.6-pyqt"
-  - "3.6-pyside"
+  - 2.7
+  - 3.6
+
+env:
+  - TOXENV=py-pyqt
+  - TOXENV=py-pyside
 
 addons:
     apt:
