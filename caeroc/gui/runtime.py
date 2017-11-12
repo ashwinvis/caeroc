@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import sys
 from caeroc import formulae
 try:
@@ -20,7 +19,7 @@ class CalcDialog(QDialog):
     TODO: Error handling
     """
     def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
+        QDialog.__init__(elf, parent)
 
         self.ui = Ui_CalcDialog()
         self.ui.setupUi(self)
@@ -33,6 +32,10 @@ class CalcDialog(QDialog):
         self._setupModel()
 
     def _default_values(self):
+        """Initialize scalar values which keep track of different options in
+        the GUI.
+
+        """
         self.input1 = 0.5
         self.input2 = 0.0
         self.gamma = 1.4
@@ -41,12 +44,18 @@ class CalcDialog(QDialog):
         self.on_qrb1_isen_pressed()
 
     def _setupModel(self):
+        """Sets up the model or the table where the output is displayed."""
         self.model = QStandardItemModel(10, 2, self)
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
 
     def _set_mode_with_keys_and_attrs(self, key1_to_attr, key2_to_attr,
                                       extra_attr_to_key):
+        """Reinitialize self.mode with an object of self.Mode - an alias for
+        the formulae class. Also, clear the current options and add the related
+        options for self.Mode.
+
+        """
         if not isinstance(self.mode, self.Mode):
             self.mode = self.Mode(gamma=self.gamma)
             self.key1.clear()
@@ -65,6 +74,7 @@ class CalcDialog(QDialog):
 
     @Slot()
     def on_qrb1_isen_pressed(self):
+        """Run when radio button is pressed."""
         self.Mode = formulae.isentropic.Isentropic
         key1_to_attr = {'M': 'M',
                         u'p/p\u2080': 'p_p0',
@@ -81,6 +91,7 @@ class CalcDialog(QDialog):
 
     @Slot()
     def on_qrb2_expa_pressed(self):
+        """Run when radio button is pressed."""
         self.Mode = formulae.isentropic.Expansion
         key1_to_attr = {u'θ (deg)': 'theta_deg',
                         u'θ (rad)': 'theta_rad'}
@@ -97,18 +108,21 @@ class CalcDialog(QDialog):
 
     @Slot(float)
     def on_qdsb1_input_valueChanged(self, value):
+        """Run when input value in the QDoubleSpinBox changes."""
         self.input1 = value
         if self.autocalc:
             self.on_qpb_calculate_released()
 
     @Slot(float)
     def on_qdsb2_input_valueChanged(self, value):
+        """Run when input value in the QDoubleSpinBox changes."""
         self.input2 = value
         if self.autocalc:
             self.on_qpb_calculate_released()
 
     @Slot(float)
     def on_qdsb_gamma_valueChanged(self, value):
+        """Run when input value in the QDoubleSpinBox changes."""
         self.gamma = value
         del(self.mode)
         self.mode = self.Mode(gamma=value)
@@ -117,11 +131,13 @@ class CalcDialog(QDialog):
 
     @Slot()
     def on_qcb_autocalc_stateChanged(self):
+        """Run when the QComboBox state changes."""
         self.autocalc = not self.autocalc
         print('Auto calculate: ', self.autocalc)
 
     @Slot()
     def on_qpb_calculate_released(self):
+        """Run when the QPushButton is pressed and released."""
         attr1 = self.key1_to_attr[self.key1.currentText()]
         attr2 = self.key2_to_attr[self.key2.currentText()]
         if attr2 is None:
