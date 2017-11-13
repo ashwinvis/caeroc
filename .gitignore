@@ -1,0 +1,8 @@
+build/*
+dist/*
+
+*.pyc
+*.swp
+*.swo
+caeroc.egg-info/*
+.tox/*
