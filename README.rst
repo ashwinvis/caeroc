@@ -9,11 +9,10 @@ Compressible Aerodynamics Calculator for Python
 A python package for compressible flows. A dynamic toolkit which enables
 you to make use of the formulae governing compressible flows.
 
-.. figure:: http://i.imgur.com/7Bb0ypN.png
-   :alt: screenshot
-   :figwidth: 30%
+.. figure:: https://raw.githubusercontent.com/ashwinvis/caeroc/gh-pages/screenshot.png
+   :alt: Screenshot
 
-.. figure:: https://thumbs.gfycat.com/FairAlarmedAntarcticfurseal-max-14mb.gif
+.. figure:: https://media.githubusercontent.com/media/ashwinvis/caeroc/gh-pages/caeroc.gif
    :alt: Demo. Click to see the full video
    :target: https://vid.me/lQo1D
 
