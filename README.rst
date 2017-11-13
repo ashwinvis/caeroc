@@ -14,6 +14,7 @@ you to make use of the formulae governing compressible flows.
 
 .. figure:: https://media.githubusercontent.com/media/ashwinvis/caeroc/gh-pages/caeroc.gif
    :alt: Demo. Click to see the full video
+   :align: right
    :target: https://vid.me/lQo1D
 
 Requirements
