@@ -1,3 +1,4 @@
+from numbers import Number
 import numpy as np
 from ..logger import logger
 
@@ -54,7 +55,7 @@ class FormulaeBase(object):
 
     def store(self, key, val):
         if key not in self.keys:
-            raise ValueError('Unknown key: %s' % key)
+            raise ValueError('Unknown key: {} not in {}'.format(key, self.keys))
 
         self._check_limits(key, val)
         self.data[key].append(val)
@@ -64,5 +65,8 @@ class FormulaeBase(object):
 
         minimum = self.minima[key]
         maximum = self.maxima[key]
+        if not isinstance(val, Number):
+            logger.critical('{} is not a number.'.format(val))
+
         if np.all(val < minimum) or np.all(val > maximum):
             logger.error('%s = %f must be between %d and %d' % (key, val, minimum, maximum))

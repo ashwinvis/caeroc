@@ -65,15 +65,15 @@ class CalcDialog(QDialog):
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
 
-    def _set_mode_with_keys_and_attrs(self, key1_to_attr, key2_to_attr,
-                                      extra_attr_to_key):
+    def _set_keys_and_attrs(self, key1_to_attr, key2_to_attr,
+                            extra_attr_to_key, **kwargs):
         """Reinitialize self.mode with an object of self.Mode - an alias for
         the formulae class. Also, clear the current options and add the related
         options for self.Mode.
 
         """
+
         if not isinstance(self.mode, self.Mode):
-            self.mode = self.Mode(gamma=self.gamma)
             self.key1.clear()
             self.key2.clear()
             self.key1_to_attr = key1_to_attr
@@ -88,6 +88,10 @@ class CalcDialog(QDialog):
 
             self.key1.addItems(keys1)
             self.key2.addItems(keys2)
+
+    def _set_mode(self, **kwargs):
+        if not isinstance(self.mode, self.Mode):
+            self.mode = self.Mode(gamma=self.gamma, **kwargs)
             logger.debug('MODE: {}'.format(self.mode.__doc__))
 
     def _set_attr_to_key(self, extra=None):
@@ -109,8 +113,9 @@ class CalcDialog(QDialog):
                              'p_pt': 'p/p*',
                              'rho_rhot': u'ρ/ρ*',
                              'T_Tt': 'T/T*'}
-        self._set_mode_with_keys_and_attrs(key1_to_attr, key2_to_attr,
-                                           extra_attr_to_key)
+        self._set_keys_and_attrs(key1_to_attr, key2_to_attr,
+                                 extra_attr_to_key)
+        self._set_mode()
 
     @Slot()
     def on_qrb2_expa_pressed(self):
@@ -126,13 +131,31 @@ class CalcDialog(QDialog):
                              'p2_p1': u'p\u2082/p\u2081',
                              'rho2_rho1': u'ρ\u2082/ρ\u2081',
                              'T2_T1': u'T\u2082/T\u2081'}
-        self._set_mode_with_keys_and_attrs(key1_to_attr, key2_to_attr,
-                                           extra_attr_to_key)
+        self._set_keys_and_attrs(key1_to_attr, key2_to_attr,
+                                 extra_attr_to_key)
+        self._set_mode()
 
     @Slot()
     def on_qrb3_norm_pressed(self):
         """Run when radio button Normal Shock is pressed."""
-        logger.warn('MODE:Normal Shock not implemented')
+        self.Mode = formulae.shock.NormalShock
+        key1_to_attr = {u'M\u2081': 'M_1',
+                        u'p\u2082/p\u2081': 'p2_p1',
+                        u'ρ\u2082/ρ\u2080': 'rho2_rho1',
+                        u'T\u2082/T\u2081': 'T2_T1'}
+        key2_to_attr = {'-': None}
+        extra_attr_to_key = {'M_2': u'M\u2082',
+                             'p02_p01': u'p0\u2082/p0\u2081',
+                             'rho02_rho01': u'ρ0\u2082/ρ0\u2080', 
+                             'T02_T01': u'T0\u2082/T0\u2081'}
+
+        self._set_keys_and_attrs(key1_to_attr, key2_to_attr,
+                                 extra_attr_to_key)
+        kwargs = dict()
+        key1 = self.key1.currentText()
+        attr1 = key1_to_attr[key1]
+        kwargs[attr1] = self.input1
+        self._set_mode(**kwargs)
 
     @Slot()
     def on_qrb4_obli_pressed(self):

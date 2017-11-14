@@ -1,5 +1,6 @@
 import numpy as np
 from skaero.gasdynamics.shocks import _ShockClass
+from ..util.decorators import storeresult
 from ..logger import logger
 from .base import FormulaeBase
 
@@ -7,19 +8,36 @@ from .base import FormulaeBase
 class NormalShock(FormulaeBase, _ShockClass):
     """Normal shock relations"""
 
-    def __init__(self, gamma=1.4):
+    def __init__(self, **kwargs):
+        if 'gamma' in kwargs:
+            self.gamma = kwargs['gamma']
+        else:
+            self.gamma = kwargs['gamma'] = 1.4
+
+        if 'M_1' not in kwargs:
+            self.M_1 = kwargs['M_1'] = self.get_M_1(**kwargs)
+
+        if 'beta' not in kwargs:
+            # Strong shock solution
+            kwargs['beta'] = np.pi / 2
+
         self.keys = ['M_1', 'M_2',
                      'p2_p1', 'rho2_rho1', 'T2_T1',
                      'p02_p01', 'rho02_rho01', 'T02_T01']
-        self.gamma = gamma
 
-    def M_1(self, M_2=None, p2_p1=None, rho2_rho1=None, T2_T1=None,
-            p02_p01=None, p2_p01=None):
+        super(NormalShock, self).__init__(**kwargs)
+
+    def get_M_1(self, M_2=None, p2_p1=None, rho2_rho1=None, T2_T1=None,
+            p02_p01=None, p2_p01=None, **kwargs):
         """
         Computes Mach number when one of the arguments are specified
 
         """
-        g = self.gamma
+        try:
+            g = self.gamma
+        except KeyError:
+            g = kwargs['gamma']
+
         if p2_p1 is not None:
             M_1 = np.sqrt((p2_p1 - 1) * (g + 1.) / 2. /  g + 1.)
         elif rho2_rho1 is not None:
@@ -38,7 +56,7 @@ class NormalShock(FormulaeBase, _ShockClass):
         else:
             logger.error('Insufficient data to calculate Mach number')
 
-        return M
+        return M_1
 
 
     def calculate(self, M_1=None, M_2=None,
@@ -53,20 +71,20 @@ class NormalShock(FormulaeBase, _ShockClass):
         theta_deg or theta_rad : float
             Turn angle or deflection angle, optional but specify one.
 
-        M_1 or nu_1 : float
-            Mach number or Prandtl-Meyer angle (in radians) of inflow
+        M_1: float
+            Mach number of inflow
 
         """
-        if M_1 is None:
-            pass
+        if M_1 is not None:
+            self.M_1 = M_1
         elif any([v is not None for v in (p2_p1, rho2_rho1, T2_T1)]):
-            M_1 = self.M_1(p2_p1, rho2_rho1, T2_T1)
+            self.M_1 = self.get_M_1(p2_p1, rho2_rho1, T2_T1)
         else:
-            logger.error('Insufficient data: M_1 or nu_1' +
-                         'must be specified.')
+            logger.error('Insufficient data: M_1 or p2_p1 or rho2_rho1 '
+                         'or T2_T1 must be specified.')
 
-        self.M_1 = M_1
-        super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)
+        super(NormalShock, self).__init__(
+            M_1=self.M_1, beta=np.pi / 2, gamma=self.gamma)
         for key in self.keys:
             self.store(key, getattr(self, key))
 
