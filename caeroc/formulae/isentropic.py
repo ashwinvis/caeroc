@@ -6,6 +6,14 @@ from ..logger import logger
 from .base import FormulaeBase
 
 
+def safe_div(x1, x2):
+    """Quietly divide x1 by x2, while ignoring RuntimeWarnings."""
+    old_err_state = np.seterr(divide='ignore')
+    out = np.divide(x1, x2)
+    np.seterr(**old_err_state)
+    return out
+
+
 class Isentropic(FormulaeBase, IsentropicFlow):
     """Isentropic flow relations for quasi 1D flows"""
 
@@ -84,8 +92,11 @@ class Isentropic(FormulaeBase, IsentropicFlow):
             M^* = ((\gamma + 1)/(\gamma - 1) * (1./M^2/(\gamma -1) + 0.5))^(-0.5)
 
         """
-        return ((self.gamma + 1) / (self.gamma - 1) *
-                (1. / M ** 2 / (self.gamma -1) + 0.5)) ** (-0.5)
+        gp1 = self.gamma + 1
+        gm1 = self.gamma - 1
+
+        Mt = 1. / np.sqrt(gp1 / gm1 * (safe_div(1, M**2) / gm1 + 0.5))
+        return Mt
 
     @storeresult
     def p_pt(self, M, *args, **kwargs):
@@ -187,7 +198,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
             Input parameters to calculate, optional but specify one.
 
         """
-        if M:
+        if M is not None:
             mach = M
         else:
             kwargs = {'p_p0': p_p0, 'rho_rho0': rho_rho0, 'T_T0': T_T0,

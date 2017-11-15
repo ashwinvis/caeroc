@@ -65,8 +65,9 @@ class FormulaeBase(object):
 
         minimum = self.minima[key]
         maximum = self.maxima[key]
-        if not isinstance(val, Number):
+        if isinstance(val, np.ndarray) or isinstance(val, Number):
+            if np.all(val < minimum) or np.all(val > maximum):
+                logger.error('{} = {} must be between {} and {}'.format(
+                    key, val, minimum, maximum))
+        else:
             logger.critical('{} is not a number.'.format(val))
-
-        if np.all(val < minimum) or np.all(val > maximum):
-            logger.error('%s = %f must be between %d and %d' % (key, val, minimum, maximum))
