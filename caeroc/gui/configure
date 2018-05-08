@@ -1,2 +1,5 @@
+#!/bin/sh
+set +e
 pyuic5 base.ui > base_pyqt.py
 python2-pyside-uic base.ui > base_pyside.py
+pyside2-uic base.ui > base_pyside2.py

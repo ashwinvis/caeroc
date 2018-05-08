@@ -32,7 +32,7 @@ To install from PyPI:
 
 .. code:: bash
 
-    pip install -e git+https://github.com/ashwinvis/scikit-aero.git#egg=scikit-aero
+    pip install -e git+https://github.com/AeroPython/scikit-aero.git#egg=scikit-aero
 
     # Any of the following
     pip install caeroc
@@ -43,7 +43,8 @@ To install development versions of ``caeroc`` and ``scikit-aero``
 
 .. code:: bash
 
-    pip install -e git+https://github.com/ashwinvis/caeroc.git#egg=caeroc --process-dependency-links --trusted-host github.com
+    pip install pipenv
+    pipenv install -e git+https://github.com/ashwinvis/caeroc.git#egg=caeroc
 
 If the current configuration of the GUI does not work for you,
 regenerate it by running:
@@ -60,19 +61,6 @@ Simply run in your terminal
 .. code:: bash
 
     caeroc-app
-
-Development
------------
-
-Development mode will install ``caeroc`` using soft links.
-
-.. code:: bash
-
-    git clone --recursive https://github.com/ashwinvis/caeroc.git
-    cd caeroc
-    python setup.py develop
-    cd ../scikit-aero
-    python setup.py develop
 
 Features
 --------

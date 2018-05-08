@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+scikit-aero = {git = "https://github.com/AeroPython/scikit-aero", editable = true}
+"e1839a8" = {path = ".", editable = true}
+qtpy = "*"
+colorlog = "*"
+
+[dev-packages]
+"pyqt5" = "*"
+
+[requires]
+python_version = "3.6"

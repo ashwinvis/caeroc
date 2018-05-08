@@ -6,9 +6,6 @@ from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-import sys
-if sys.version_info[:2] < (2, 6) or (3, 0) <= sys.version_info[0:2] < (3, 2):
-    raise RuntimeError("Python version 2.6, 2.7 or >= 3.2 required.")
 
 # Get the long description from the relevant file
 with open(os.path.join(here, 'README.rst')) as f:
@@ -41,7 +38,7 @@ except AttributeError:
         devstatus = 'Development Status :: 5 - Production/Stable'
 
 install_requires=[
-  'numpy', 'scipy', 'matplotlib', 'scikit-aero>=0.2.dev0']
+  'numpy', 'scipy', 'matplotlib', 'scikit-aero>=0.2.dev0', 'qtpy']
 
 if not sys.platform.startswith('win') and sys.version_info[0] < 3:
     install_requires.append('subprocess32')
@@ -78,12 +75,9 @@ setup(name='caeroc',
           'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
       ],
+      python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
       packages=find_packages(exclude=['doc', 'examples']),
-      # package_data={
-      #     'sample': ['package_data.dat'],
-      # },
       install_requires=install_requires,
-      dependency_links=['http://github.com/ashwinvis/scikit-aero/tarball/master#egg=scikit-aero-0.2.dev0'],
       extras_require=dict(pyside=['PySide'], pyqt=['PyQt5']),
       scripts=scripts,
       )

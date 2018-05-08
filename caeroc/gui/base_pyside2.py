@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file 'base.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created: Tue May  8 13:58:48 2018
+#      by: pyside2-uic  running on PySide2 5.11.0a1.dev1525358924
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_CalcDialog(object):
     def setupUi(self, CalcDialog):
@@ -17,6 +18,7 @@ class Ui_CalcDialog(object):
         self.gridWidget = QtWidgets.QWidget(CalcDialog)
         self.gridWidget.setObjectName("gridWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.gridWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.valueFrame = QtWidgets.QFrame(self.gridWidget)
         self.valueFrame.setObjectName("valueFrame")
@@ -46,8 +48,8 @@ class Ui_CalcDialog(object):
         self.label.setEnabled(False)
         font = QtGui.QFont()
         font.setPointSize(11)
-        font.setBold(True)
         font.setWeight(75)
+        font.setBold(True)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout_2.addWidget(self.label, 2, 0, 2, 1)
@@ -82,9 +84,9 @@ class Ui_CalcDialog(object):
         self.label_3.setEnabled(False)
         font = QtGui.QFont()
         font.setPointSize(11)
-        font.setBold(True)
-        font.setUnderline(False)
         font.setWeight(75)
+        font.setUnderline(False)
+        font.setBold(True)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.gridLayout_3.addWidget(self.label_3, 5, 0, 2, 1)
@@ -124,9 +126,8 @@ class Ui_CalcDialog(object):
         self.label_4.setEnabled(False)
         font = QtGui.QFont()
         font.setPointSize(11)
-        font.setBold(True)
         font.setWeight(75)
-        font.setKerning(True)
+        font.setBold(True)
         self.label_4.setFont(font)
         self.label_4.setAcceptDrops(False)
         self.label_4.setObjectName("label_4")
@@ -152,26 +153,25 @@ class Ui_CalcDialog(object):
         self.verticalLayout_2.addWidget(self.gridWidget)
 
         self.retranslateUi(CalcDialog)
-        self.buttonBox.accepted.connect(CalcDialog.accept)
-        self.buttonBox.rejected.connect(CalcDialog.reject)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), CalcDialog.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), CalcDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(CalcDialog)
 
     def retranslateUi(self, CalcDialog):
-        _translate = QtCore.QCoreApplication.translate
-        CalcDialog.setWindowTitle(_translate("CalcDialog", "Caeroc Calculator"))
-        CalcDialog.setToolTip(_translate("CalcDialog", "<html><head/><body><p>Input</p></body></html>"))
-        self.qrb4_obli.setText(_translate("CalcDialog", "Ob&lique Shock"))
-        self.qrb3_norm.setText(_translate("CalcDialog", "&Normal Shock"))
-        self.qrb1_isen.setText(_translate("CalcDialog", "Isen&tropic"))
-        self.qrb5_fann.setText(_translate("CalcDialog", "Fanno F&low"))
-        self.qrb6_rayl.setText(_translate("CalcDialog", "Ra&yleigh Flow"))
-        self.label.setToolTip(_translate("CalcDialog", "Choose a formula set"))
-        self.label.setText(_translate("CalcDialog", "Mode"))
-        self.qrb2_expa.setText(_translate("CalcDialog", "E&xpansion"))
-        self.qcb_autocalc.setText(_translate("CalcDialog", "AutoCalculate"))
-        self.qpb_calculate.setText(_translate("CalcDialog", "Calculate"))
-        self.label_3.setText(_translate("CalcDialog", "Input"))
-        self.label_2.setText(_translate("CalcDialog", "ɣ ="))
-        self.label_4.setToolTip(_translate("CalcDialog", "Tabulated output"))
-        self.label_4.setText(_translate("CalcDialog", "Result"))
+        CalcDialog.setWindowTitle(QtWidgets.QApplication.translate("CalcDialog", "Caeroc Calculator", None, -1))
+        CalcDialog.setToolTip(QtWidgets.QApplication.translate("CalcDialog", "<html><head/><body><p>Input</p></body></html>", None, -1))
+        self.qrb4_obli.setText(QtWidgets.QApplication.translate("CalcDialog", "Ob&lique Shock", None, -1))
+        self.qrb3_norm.setText(QtWidgets.QApplication.translate("CalcDialog", "&Normal Shock", None, -1))
+        self.qrb1_isen.setText(QtWidgets.QApplication.translate("CalcDialog", "Isen&tropic", None, -1))
+        self.qrb5_fann.setText(QtWidgets.QApplication.translate("CalcDialog", "Fanno F&low", None, -1))
+        self.qrb6_rayl.setText(QtWidgets.QApplication.translate("CalcDialog", "Ra&yleigh Flow", None, -1))
+        self.label.setToolTip(QtWidgets.QApplication.translate("CalcDialog", "Choose a formula set", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("CalcDialog", "Mode", None, -1))
+        self.qrb2_expa.setText(QtWidgets.QApplication.translate("CalcDialog", "E&xpansion", None, -1))
+        self.qcb_autocalc.setText(QtWidgets.QApplication.translate("CalcDialog", "AutoCalculate", None, -1))
+        self.qpb_calculate.setText(QtWidgets.QApplication.translate("CalcDialog", "Calculate", None, -1))
+        self.label_3.setText(QtWidgets.QApplication.translate("CalcDialog", "Input", None, -1))
+        self.label_2.setText(QtWidgets.QApplication.translate("CalcDialog", "ɣ =", None, -1))
+        self.label_4.setToolTip(QtWidgets.QApplication.translate("CalcDialog", "Tabulated output", None, -1))
+        self.label_4.setText(QtWidgets.QApplication.translate("CalcDialog", "Result", None, -1))
 

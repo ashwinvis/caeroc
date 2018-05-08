@@ -7,3 +7,5 @@ dist/*
 .spyder*
 caeroc.egg-info/*
 .tox/*
+
+Pipfile.lock

@@ -3,29 +3,25 @@ Qt signals and slots.
 
 """
 import sys
-try:
-    from PyQt5 import QtCore
-    from PyQt5.QtCore import pyqtSlot as Slot
-    from PyQt5.QtWidgets import QDialog, QApplication
-    from PyQt5.QtGui import QStandardItemModel
-    use_pyqt = True
-except ImportError:
-    from PySide import QtCore
-    from PySide.QtCore import Slot
-    from PySide.QtGui import QDialog, QStandardItemModel, QApplication
-    use_pyqt = False
+from qtpy import QtGui, QtCore, QtWidgets
+from qtpy import PYQT4, PYQT5, PYSIDE, PYSIDE2
 
 from .. import formulae
 from ..logger import logger
-if use_pyqt:
+if PYQT4 or PYQT5:
     from .base_pyqt import Ui_CalcDialog
     logger.debug('Using PyQt5 backend.')
-else:
+elif PYSIDE2:
+    from .base_pyside2 import Ui_CalcDialog
+    logger.debug('Using PySide2 backend.')
+elif PYSIDE:
     from .base_pyside import Ui_CalcDialog
     logger.debug('Using PySide backend.')
 
+Slot = QtCore.Slot
 
-class CalcDialog(QDialog):
+
+class CalcDialog(QtWidgets.QDialog):
     """
     Bridges all events in QApplication CalcApp to caeroc.formulae
     TODO: Error handling
@@ -54,14 +50,14 @@ class CalcDialog(QDialog):
 
         # -----Connect Signals-------
         self.autocalc = False
-        if use_pyqt:
+        if PYQT4 or PYQT5:
             self.ui.qcb_autocalc.setChecked(self.autocalc)
             self.ui.qcb_autocalc.stateChanged.connect(
                 self.on_qcb_autocalc_stateChanged)
 
     def _setupModel(self):
         """Sets up the model or the table where the output is displayed."""
-        self.model = QStandardItemModel(10, 2, self)
+        self.model = QtGui.QStandardItemModel(10, 2, self)
         self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Parameter")
         self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Value")
 
@@ -82,7 +78,7 @@ class CalcDialog(QDialog):
 
             keys1 = self.key1_to_attr.keys()
             keys2 = self.key2_to_attr.keys()
-            if not use_pyqt:
+            if not (PYQT4 and PYQT5):
                 keys1 = list(keys1)
                 keys2 = list(keys2)
 
@@ -236,7 +232,7 @@ class CalcDialog(QDialog):
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     calculator = CalcDialog()
     calculator.show()
     sys.exit(app.exec_())
