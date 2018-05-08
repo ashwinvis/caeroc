@@ -34,8 +34,7 @@ cache:
 
 # command to install dependencies
 install:
-  - pip install . --process-dependency-links --trusted-host github.com
-  - pip install -U tox pip setuptools
+  - pip install -U tox-pipenv pip setuptools
 
 script:
   - travis_wait 40 tox -vv
