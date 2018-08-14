@@ -12,10 +12,10 @@ you to make use of the formulae governing compressible flows.
 .. figure:: https://raw.githubusercontent.com/ashwinvis/caeroc/gh-pages/screenshot.png
    :alt: Screenshot
 
-.. figure:: https://media.githubusercontent.com/media/ashwinvis/caeroc/gh-pages/caeroc.gif
+.. figure:: https://media.githubusercontent.com/media/ashwinvis/caeroc/gh-pages/caeroc-video.png
    :alt: Demo. Click to see the full video
    :align: right
-   :target: https://gfycat.com/gifs/detail/fairalarmedantarcticfurseal
+   :target: https://peertube.social/videos/watch/2663f4b3-7c0a-4283-ac8b-9f864187d775
 
 Requirements
 ------------
