@@ -6,6 +6,8 @@ import sys
 from qtpy import QtGui, QtCore, QtWidgets
 from qtpy import PYQT4, PYQT5, PYSIDE, PYSIDE2
 
+import pyqtgraph as pg
+import numpy as np
 from .. import formulae
 from ..logger import logger
 if PYQT4 or PYQT5:
@@ -54,6 +56,8 @@ class CalcDialog(QtWidgets.QDialog):
             self.ui.qcb_autocalc.setChecked(self.autocalc)
             self.ui.qcb_autocalc.stateChanged.connect(
                 self.on_qcb_autocalc_stateChanged)
+            self.ui.qpb_plot.pressed.connect(
+                self.on_qpb_pressed)
 
     def _setupModel(self):
         """Sets up the model or the table where the output is displayed."""
@@ -94,6 +98,22 @@ class CalcDialog(QtWidgets.QDialog):
         self.attr_to_key = {v: k for k, v in self.key1_to_attr.items()}
         self.attr_to_key.update({v: k for k, v in self.key2_to_attr.items()})
         self.attr_to_key.update(extra)
+
+    @Slot()
+    def on_qpb_pressed(self):
+        """run when plot buttong is pressed"""
+        # PlotWindow(None)
+        # x_min = self.mode.minima['M']
+        x_min = 0.1
+        x_max = self.mode.maxima['M']
+        x_range = np.linspace(x_min, x_max, 500, endpoint=True)
+        y = np.zeros_like(x_range)
+        for index, val in enumerate(x_range):
+            kwargs = {'M': val}
+            self.mode.calculate(**kwargs)
+            outcome = self.mode.data['p_p0'].pop()
+            y[index] = outcome
+        pg.plot(x_range, y)
 
     @Slot()
     def on_qrb1_isen_pressed(self):
