@@ -6,12 +6,12 @@ authors = [
     {name = "Ashwin V. Mohanan", email = "dev@fluid.quest"},
 ]
 dependencies = [
-    "matplotlib",
-    "numpy",
-    "qtpy",
+    "matplotlib>=3.5",
+    "numpy >= 1.21, < 2",
+    "qtpy>=2",
+    "scipy>=1.8",
     # "scikit-aero",
     "skaero @ https://github.com/AeroPython/scikit-aero/archive/06958096c04183cde87a7e8a6cd7c016eb9140b3.zip",
-    "scipy",
 ]
 requires-python = ">=3.10"
 readme = "README.rst"
@@ -37,10 +37,10 @@ Homepage = "https://github.org/ashwinvis/caeroc"
 
 [project.optional-dependencies]
 pyside = [
-    "PySide2",
+    "PySide2 >= 5.15",
 ]
 pyqt = [
-    "PyQt5",
+    "PyQt5 >= 5.15",
 ]
 
 [build-system]
@@ -49,3 +49,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch]
 metadata.allow-direct-references = true
+
+[tool.uv.sources]
+caeroc = { workspace = true }

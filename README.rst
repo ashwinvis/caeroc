@@ -19,7 +19,7 @@ you to make use of the formulae governing compressible flows.
 
 Requirements
 ------------
-- Python 2.7, >=3.4
+- Python 3.10
 - pylab (numpy, scipy and matplotlib)
 - ashwinvis/scikit-aero >= 0.2
 - PyQt5 / PySide (optional, but recommended for GUI)
@@ -32,8 +32,6 @@ To install from PyPI:
 
 .. code:: bash
 
-    pip install -e git+https://github.com/AeroPython/scikit-aero.git#egg=scikit-aero
-
     # Any of the following
     pip install caeroc
     pip install caeroc[pyqt]
@@ -43,8 +41,9 @@ To install development versions of ``caeroc`` and ``scikit-aero``
 
 .. code:: bash
 
-    pip install pipenv
-    pipenv install -e git+https://github.com/ashwinvis/caeroc.git#egg=caeroc
+    pip install 'caeroc[pyqt] @ https://github.com/ashwinvis/caeroc/archive/main.zip'
+    # or
+    pip install 'caeroc[pyside] @ https://github.com/ashwinvis/caeroc/archive/main.zip'
 
 If the current configuration of the GUI does not work for you,
 regenerate it by running:
