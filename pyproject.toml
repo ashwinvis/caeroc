@@ -28,6 +28,10 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 
+[project.scripts]
+caeroc-app = "caeroc.cli:caeroc_app"
+caeroc-test = "caeroc.cli:caeroc_test"
+
 [project.urls]
 Homepage = "https://github.org/ashwinvis/caeroc"
 
