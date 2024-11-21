@@ -1,6 +1,6 @@
 [project]
 name = "caeroc"
-version = "0.0.3b0"
+version = "0.0.3b1"
 description = "Compressible aerodynamics calculator in Python"
 authors = [
     {name = "Ashwin V. Mohanan", email = "dev@fluid.quest"},
@@ -16,6 +16,7 @@ dependencies = [
 requires-python = ">=3.10"
 readme = "README.rst"
 license = {text = "GPL"}
+license-files = ["LICENSE", "src/caeroc/_skaero/COPYING"]
 keywords = ["compressible aerodynamics", "calculator", "gas dynamics"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -44,7 +45,7 @@ pyqt = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.26.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch]
