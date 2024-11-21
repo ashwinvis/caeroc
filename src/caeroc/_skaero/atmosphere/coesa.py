@@ -12,7 +12,7 @@ from __future__ import absolute_import, division
 import numpy as np
 from scipy import constants, interpolate
 
-from skaero.atmosphere import util
+from caeroc._skaero.atmosphere import util
 
 # Constants and values : the following parameters are extracted from Notes
 # reference (mainly Chap. 1.2.). Naming is consistent. WARNING : Some of these

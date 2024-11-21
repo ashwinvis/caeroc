@@ -2,7 +2,7 @@
 Mathematical and physical constants
 """
 
-from skaero import units as u
+from caeroc._skaero import units as u
 
 # Earth's mean equatorial radius from IAU Working Group on Cartographic
 # Coordinates and Rotational Elements: 2015

@@ -11,7 +11,7 @@ import inspect
 import numpy as np
 from scipy import optimize
 
-from skaero.gasdynamics.isentropic import IsentropicFlow, mach_angle
+from caeroc._skaero.gasdynamics.isentropic import IsentropicFlow, mach_angle
 
 
 # Exceptions used in this module
