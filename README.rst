@@ -79,8 +79,8 @@ Courtesy
 
 -  The idea for a compressible aerodynamics calculator in the form an
    online JS tool had been implemented by `William
-   Devenport <http://www.aoe.vt.edu/people/faculty.php?fac_id=wdevenpo>`__
-   `here <http://www.dept.aoe.vt.edu/~devenpor/aoe3114/calc.html>`__.
+   Devenport <https://www.aoe.vt.edu/people/faculty/devenport.html>`__
+   `here <https://web.archive.org/web/20221106025044/http://www.dept.aoe.vt.edu/~devenpor/aoe3114/calc.html>`__.
    This project is pushing more functionalities as an offline tool and
    allowing users to dynamically use the formulae for specific cases.
 -  Thanks to the scikit-aero team for being the backend
