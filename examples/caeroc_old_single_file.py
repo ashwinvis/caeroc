@@ -243,24 +243,24 @@ class AirfoilChara:
         p2_p1[N / 2] = self.obs.p2_p1(M1, -angle[N / 2])
 
         # Expanded flow
-        for i in xrange(0, N / 2 - 1):
+        for i in range(0, N / 2 - 1):
             j = i + 1
             k = N / 2 + i
-            l = N / 2 + i + 1
+            L = N / 2 + i + 1
             if debug:
                 print("M2=", M2[i], M2[k], "   p2/p1=", p2_p1[i], p2_p1[k])
 
             dangle = angle[i] - angle[j]
             M2[j] = self.exp.M2(M2[i], dangle)
             dangle = -(angle[k] - angle[l])
-            M2[l] = self.exp.M2(M2[k], dangle)
+            M2[L] = self.exp.M2(M2[k], dangle)
 
             p2_p1[j] = self.exp.p_p0(M2[j]) / self.exp.p_p0(M2[i]) * p2_p1[i]
-            p2_p1[l] = self.exp.p_p0(M2[l]) / self.exp.p_p0(M2[k]) * p2_p1[k]
+            p2_p1[L] = self.exp.p_p0(M2[L]) / self.exp.p_p0(M2[k]) * p2_p1[k]
 
         self.cp_shock = 2 * (p2_p1 - 1) / (gamma * M1**2)
         if debug:
-            for i in xrange(0, N / 2 - 1):
+            for i in range(0, N / 2 - 1):
                 k = N / 2 + i
                 print("Cp=", self.cp_shock[i], self.cp_shock[k])
 

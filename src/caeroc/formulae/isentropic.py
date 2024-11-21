@@ -34,7 +34,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
             "T_Tt",
             "A_Astar",
         ]
-        super(Isentropic, self).__init__(gamma=gamma)
+        super().__init__(gamma=gamma)
 
     @storeresult
     def p_p0(self, M, *args, **kwargs):
@@ -52,7 +52,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
            \dfrac{p}{p_0} = \dfrac{T}{T_0} ^ (\gamma / (\gamma - 1))
 
         """
-        return super(Isentropic, self).p_p0(M)
+        return super().p_p0(M)
 
     @storeresult
     def rho_rho0(self, M, *args, **kwargs):
@@ -70,7 +70,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
             \dfrac{\rho}{\rho_0} = \dfrac{T}{T_0} ^ (1 / (\gamma - 1))
 
         """
-        return super(Isentropic, self).rho_rho0(M)
+        return super().rho_rho0(M)
 
     @storeresult
     def T_T0(self, M, *args, **kwargs):
@@ -88,7 +88,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
             \dfrac{T}{T_0} = (1+(\gamma-1)/2 * M^2) ^ {-1}
 
         """
-        return super(Isentropic, self).T_T0(M)
+        return super().T_T0(M)
 
     @storeresult
     def Mt(self, M, *args, **kwargs):
@@ -124,9 +124,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).p_p0(M) * np.power(
-            (g / 2.0 + 0.5), g / (g - 1.0)
-        )
+        return super().p_p0(M) * np.power((g / 2.0 + 0.5), g / (g - 1.0))
 
     @storeresult
     def rho_rhot(self, M, *args, **kwargs):
@@ -140,9 +138,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).rho_rho0(M) * np.power(
-            (g / 2.0 + 0.5), 1.0 / (g - 1.0)
-        )
+        return super().rho_rho0(M) * np.power((g / 2.0 + 0.5), 1.0 / (g - 1.0))
 
     @storeresult
     def T_Tt(self, M, *args, **kwargs):
@@ -156,7 +152,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).T_T0(M) * (g / 2.0 + 0.5)
+        return super().T_T0(M) * (g / 2.0 + 0.5)
 
     @storeresult
     def A_Astar(self, M, *args, **kwargs):
@@ -176,7 +172,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
                                      } ^ {(gamma+1)/(gamma-1)}
 
         """
-        return super(Isentropic, self).A_Astar(M)
+        return super().A_Astar(M)
 
     @storeresult
     def M(self, p_p0=None, rho_rho0=None, T_T0=None, A_Astar=None, *args, **kwargs):
@@ -275,7 +271,7 @@ class Expansion(FormulaeBase, PrandtlMeyerExpansion):
                 logger.error("Insufficient data: M_1 or nu_1" + "must be specified.")
 
         self.M_1 = M_1
-        super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)
+        super().__init__(M_1=self.M_1, theta=self.theta)
         for key in self.keys:
             self.store(key, getattr(self, key))
 

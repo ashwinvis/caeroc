@@ -15,7 +15,7 @@ class FormulaeBase:
         self.maxima = {}
         self._init_dataminmax()
         try:
-            super(FormulaeBase, self).__init__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
         except ValueError as e:
             logger.critical(e)
 

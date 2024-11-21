@@ -33,7 +33,7 @@ class NormalShock(FormulaeBase, _ShockClass):
             "T02_T01",
         ]
 
-        super(NormalShock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def get_M_1(
         self,
@@ -108,9 +108,7 @@ class NormalShock(FormulaeBase, _ShockClass):
                 "or T2_T1 must be specified."
             )
 
-        super(NormalShock, self).__init__(
-            M_1=self.M_1, beta=np.pi / 2, gamma=self.gamma
-        )
+        super().__init__(M_1=self.M_1, beta=np.pi / 2, gamma=self.gamma)
         for key in self.keys:
             self.store(key, getattr(self, key))
 

@@ -11,7 +11,7 @@ N = int(M_max * 100)
 mach = list(np.linspace(0.1, M_max, N))
 isen.data["M"] = mach
 
-for i in xrange(N):
+for i in range(N):
     isen.p_p0(mach[i])
     isen.rho_rho0(mach[i])
     isen.t_t0(mach[i])
