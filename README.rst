@@ -21,8 +21,8 @@ Requirements
 ------------
 - Python 3.10
 - pylab (numpy, scipy and matplotlib)
-- ashwinvis/scikit-aero >= 0.2
-- PyQt5 / PySide (optional, but recommended for GUI)
+- scikit-aero >= 0.2
+- PyQt5 / PySide2 (optional, but recommended for GUI)
 - pandas (optional: for making tables)
 - colorlog (optional: for coloured log)
 
