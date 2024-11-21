@@ -1,13 +1,9 @@
-# coding: utf-8
-
 """
 .. _U.S. 1976 Standard Atmosphere: http://ntrs.nasa.gov/search.jsp?R=19770009539
 
 COESA model, based on the `U.S. 1976 Standard Atmosphere`_.
 
 """
-
-from __future__ import absolute_import, division
 
 import numpy as np
 from scipy import constants, interpolate
@@ -141,7 +137,7 @@ def table(x, kind="geopotential"):
         alt = util.geometric_to_geopotential(x)
     else:
         raise ValueError(
-            "%s is unsupported: Use either geopotential or " "geometric." % kind
+            f"{kind} is unsupported: Use either geopotential or " "geometric."
         )
 
     h = np.asarray(alt)

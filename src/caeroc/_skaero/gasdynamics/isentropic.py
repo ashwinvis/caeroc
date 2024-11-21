@@ -1,7 +1,5 @@
 """ Isentropic properties. """
 
-from __future__ import absolute_import, division
-
 import numpy as np
 import scipy as sp
 from scipy.optimize import bisect, newton
@@ -112,7 +110,7 @@ def mach_from_nu(nu, in_radians=True, gamma=1.4):
     nu_max = np.pi / 2.0 * (np.sqrt((gamma + 1.0) / (gamma - 1.0)) - 1)
     if nu <= 0.0 or nu >= nu_max:
         raise ValueError(
-            "Prandtl-Meyer angle must be between (0, %f) radians." % nu_max
+            f"Prandtl-Meyer angle must be between (0, {nu_max:f}) radians."
         )
 
     eq = implicit(PrandtlMeyerExpansion.nu)
@@ -121,7 +119,7 @@ def mach_from_nu(nu, in_radians=True, gamma=1.4):
     return M
 
 
-class IsentropicFlow(object):
+class IsentropicFlow:
     """Class representing an isentropic gas flow.
 
     Isentropic flow is characterized by:
@@ -234,7 +232,7 @@ class IsentropicFlow(object):
         return A_Astar
 
     def a_a0(self, M):
-        """ Speed of sound ratio from Mach number.
+        """Speed of sound ratio from Mach number.
 
         Parameters
         ----------
@@ -253,10 +251,8 @@ class IsentropicFlow(object):
         return a_a0
 
 
-class PrandtlMeyerExpansion(object):
-    """Class representing a Prandtl-Meyer expansion fan.
-
-    """
+class PrandtlMeyerExpansion:
+    """Class representing a Prandtl-Meyer expansion fan."""
 
     @staticmethod
     def nu(M, gamma=1.4):
@@ -322,9 +318,7 @@ class PrandtlMeyerExpansion(object):
         )
         if theta > nu_max:
             raise ValueError(
-                "Deflection angle must be lower than maximum {:.2f}°".format(
-                    np.degrees(nu_max)
-                )
+                f"Deflection angle must be lower than maximum {np.degrees(nu_max):.2f}°"
             )
         self.M_1 = M_1
         self.theta = theta
@@ -342,44 +336,32 @@ class PrandtlMeyerExpansion(object):
 
     @property
     def M_2(self):
-        """Downstream Mach number.
-
-        """
+        """Downstream Mach number."""
         return mach_from_nu(nu=self.nu_2, gamma=self.fl.gamma)
 
     @property
     def mu_1(self):
-        """Angle of forward Mach line.
-
-        """
+        """Angle of forward Mach line."""
         return mach_angle(self.M_1)
 
     @property
     def mu_2(self):
-        """Angle of rearward Mach line.
-
-        """
+        """Angle of rearward Mach line."""
         return mach_angle(self.M_2)
 
     @property
     def p2_p1(self):
-        """Pressure ratio across the expansion fan.
-
-        """
+        """Pressure ratio across the expansion fan."""
         p2_p1 = self.fl.p_p0(self.M_2) / self.fl.p_p0(self.M_1)
         return p2_p1
 
     @property
     def T2_T1(self):
-        """Temperature ratio across the expansion fan.
-
-        """
+        """Temperature ratio across the expansion fan."""
         T2_T1 = self.fl.T_T0(self.M_2) / self.fl.T_T0(self.M_1)
         return T2_T1
 
     @property
     def rho2_rho1(self):
-        """Density ratio across the expansion fan.
-
-        """
+        """Density ratio across the expansion fan."""
         return self.p2_p1 / self.T2_T1

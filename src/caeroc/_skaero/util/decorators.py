@@ -1,11 +1,7 @@
-# coding: utf-8
-
 """
 Decorators for multiple purposes.
 
 """
-
-from __future__ import absolute_import, division
 
 from functools import update_wrapper, wraps
 

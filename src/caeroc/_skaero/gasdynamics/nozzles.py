@@ -1,20 +1,14 @@
-# coding: utf-8
-
 """
 Utilities for working with nozzles.
 """
-
-from __future__ import absolute_import, division
 
 import numpy as np
 
 from caeroc._skaero.gasdynamics import isentropic, shocks
 
 
-class Nozzle(object):
-    """Class representing a nozzle.
-
-    """
+class Nozzle:
+    """Class representing a nozzle."""
 
     def __init__(self, x, A):
         self.x = x

@@ -1,10 +1,6 @@
-# coding: utf-8
-
 """
 Shock waves.
 """
-
-from __future__ import absolute_import, division
 
 import inspect
 
@@ -123,9 +119,7 @@ Shock = _ShockFactory
 
 
 def _from_deflection_angle(M_1, theta, weak, gamma):
-    """Returns oblique shock given upstream Mach number and deflection angle.
-
-    """
+    """Returns oblique shock given upstream Mach number and deflection angle."""
 
     def eq(beta, M_1, theta, gamma):
         os = _ShockClass(M_1, beta, gamma)
@@ -146,18 +140,14 @@ def _from_deflection_angle(M_1, theta, weak, gamma):
     return _ShockClass(M_1, beta, gamma)
 
 
-class _ShockClass(object):
-    """Class representing a shock.
-
-    """
+class _ShockClass:
+    """Class representing a shock."""
 
     def __init__(self, M_1, beta, gamma):
         mu = mach_angle(M_1)
         if beta < mu:
             raise ValueError(
-                "Shock wave angle must be higher than Mach angle {:.2f}°".format(
-                    np.degrees(mu)
-                )
+                f"Shock wave angle must be higher than Mach angle {np.degrees(mu):.2f}°"
             )
 
         self.M_1 = M_1
@@ -167,15 +157,11 @@ class _ShockClass(object):
 
     def __repr__(self):
         # FIXME: What if the object is returned from different parameters?
-        return "Shock(M_1={0!r}, beta={1!r}, " "gamma={2!r})".format(
-            self.M_1, self.beta, self.gamma
-        )
+        return f"Shock(M_1={self.M_1!r}, beta={self.beta!r}, " f"gamma={self.gamma!r})"
 
     @property
     def theta(self):
-        """Deflection angle of the shock.
-
-        """
+        """Deflection angle of the shock."""
         if self.beta == mach_angle(self.M_1) or self.beta == np.pi / 2:
             theta = 0.0
         else:
@@ -201,33 +187,25 @@ class _ShockClass(object):
 
     @property
     def M_2(self):
-        """Mach number behind the shock.
-
-        """
+        """Mach number behind the shock."""
         M_2 = self.M_2n / np.sin(self.beta - self.theta)
         return M_2
 
     @property
     def p2_p1(self):
-        """Pressure ratio across the shock.
-
-        """
+        """Pressure ratio across the shock."""
         p2_p1 = 1 + 2 * self.gamma * (self.M_1n * self.M_1n - 1) / (self.gamma + 1)
         return p2_p1
 
     @property
     def rho2_rho1(self):
-        """Density ratio accross the shock.
-
-        """
+        """Density ratio accross the shock."""
         rho2_rho1 = (self.gamma + 1) / (2 / (self.M_1n * self.M_1n) + self.gamma - 1)
         return rho2_rho1
 
     @property
     def T2_T1(self):
-        """Temperature ratio accross the shock.
-
-        """
+        """Temperature ratio accross the shock."""
         T2_T1 = self.p2_p1 / self.rho2_rho1
         return T2_T1
 

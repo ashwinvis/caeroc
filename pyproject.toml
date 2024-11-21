@@ -55,6 +55,7 @@ caeroc = { workspace = true }
 
 [tool.ruff.lint]
 select = ["E", "I", "UP"]
+ignore = ["E501"]
 
 [dependency-groups]
 dev = [
