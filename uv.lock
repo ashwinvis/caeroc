@@ -10,7 +10,6 @@ dependencies = [
     { name = "numpy" },
     { name = "qtpy" },
     { name = "scipy" },
-    { name = "skaero" },
 ]
 
 [package.optional-dependencies]
@@ -21,16 +20,23 @@ pyside = [
     { name = "pyside2" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "skaero" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "matplotlib", specifier = ">=3.5" },
-    { name = "numpy", specifier = ">1.21,<2" },
+    { name = "numpy", specifier = ">=1.21,<2" },
     { name = "pyqt5", marker = "extra == 'pyqt'", specifier = ">=5.15" },
     { name = "pyside2", marker = "extra == 'pyside'", specifier = ">=5.15" },
     { name = "qtpy", specifier = ">=2" },
     { name = "scipy", specifier = ">=1.8" },
-    { name = "skaero", url = "https://github.com/AeroPython/scikit-aero/archive/06958096c04183cde87a7e8a6cd7c016eb9140b3.zip" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "skaero", url = "https://github.com/AeroPython/scikit-aero/archive/06958096c04183cde87a7e8a6cd7c016eb9140b3.zip" }]
 
 [[package]]
 name = "contourpy"

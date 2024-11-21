@@ -11,7 +11,6 @@ dependencies = [
     "qtpy>=2",
     "scipy>=1.8",
     # "scikit-aero",
-    "skaero @ https://github.com/AeroPython/scikit-aero/archive/06958096c04183cde87a7e8a6cd7c016eb9140b3.zip",
 ]
 requires-python = ">=3.10"
 readme = "README.rst"
@@ -55,3 +54,8 @@ caeroc = { workspace = true }
 
 [tool.ruff.lint]
 select = ["E", "I", "UP"]
+
+[dependency-groups]
+dev = [
+    "skaero @ https://github.com/AeroPython/scikit-aero/archive/06958096c04183cde87a7e8a6cd7c016eb9140b3.zip",
+]

@@ -1,5 +1,9 @@
 import numpy as np
-from skaero.gasdynamics.shocks import _ShockClass
+
+try:
+    from .._skaero.gasdynamics.shocks import _ShockClass
+except ImportError:
+    from skaero.gasdynamics.shocks import _ShockClass
 
 from ..logger import logger
 from ..util.decorators import storeresult
@@ -116,7 +120,6 @@ class NormalShock(FormulaeBase, _ShockClass):
 
 
 class ObliqueShock(NormalShock):
-
     def __init__(self, gamma=1.4):
         self.keys = [
             "M_1",

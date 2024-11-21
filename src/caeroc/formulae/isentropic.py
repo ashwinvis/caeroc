@@ -1,10 +1,10 @@
 import numpy as np
-from skaero.gasdynamics.isentropic import (
-    IsentropicFlow,
-    PrandtlMeyerExpansion,
-    mach_from_area_ratio,
-    mach_from_nu,
-)
+
+try:
+    from .._skaero.gasdynamics import isentropic as _isentropic
+except ImportError:
+    from skaero.gasdynamics import isentropic as _isentropic
+
 
 from ..logger import logger
 from ..util.decorators import storeresult
@@ -19,7 +19,7 @@ def safe_div(x1, x2):
     return out
 
 
-class Isentropic(FormulaeBase, IsentropicFlow):
+class Isentropic(FormulaeBase, _isentropic.IsentropicFlow):
     """Isentropic flow relations for quasi 1D flows"""
 
     def __init__(self, gamma=1.4):
@@ -188,7 +188,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         elif T_T0 is not None:
             M = np.sqrt(2.0 * ((1.0 / T_T0) - 1.0) / (g - 1.0))
         elif A_Astar is not None:
-            Msub, Msup = mach_from_area_ratio(A_Astar)
+            Msub, Msup = _isentropic.mach_from_area_ratio(A_Astar)
             M = np.array([Msub, Msup])
         elif "M" in kwargs.keys():
             return kwargs["M"]
@@ -227,7 +227,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         return self.data
 
 
-class Expansion(FormulaeBase, PrandtlMeyerExpansion):
+class Expansion(FormulaeBase, _isentropic.PrandtlMeyerExpansion):
     """Isentropic expansion fan flow relations"""
 
     def __init__(self, gamma=1.4):
@@ -266,7 +266,7 @@ class Expansion(FormulaeBase, PrandtlMeyerExpansion):
 
         if M_1 is None:
             if nu_1 is not None:
-                M_1 = mach_from_nu(nu=nu_1, gamma=self.gamma)
+                M_1 = _isentropic.mach_from_nu(nu=nu_1, gamma=self.gamma)
             else:
                 logger.error("Insufficient data: M_1 or nu_1" + "must be specified.")
 
