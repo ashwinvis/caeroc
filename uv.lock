@@ -8,6 +8,7 @@ source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
+    { name = "pint" },
     { name = "qtpy" },
     { name = "scipy" },
 ]
@@ -29,6 +30,7 @@ dev = [
 requires-dist = [
     { name = "matplotlib", specifier = ">=3.5" },
     { name = "numpy", specifier = ">=1.21,<2" },
+    { name = "pint", specifier = ">=0.18" },
     { name = "pyqt5", marker = "extra == 'pyqt'", specifier = ">=5.15" },
     { name = "pyside2", marker = "extra == 'pyside'", specifier = ">=5.15" },
     { name = "qtpy", specifier = ">=2" },
