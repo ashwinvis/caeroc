@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Form implementation generated from reading ui file 'base.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
@@ -11,7 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_CalcDialog(object):
+class Ui_CalcDialog:
     def setupUi(self, CalcDialog):
         CalcDialog.setObjectName("CalcDialog")
         CalcDialog.resize(459, 692)

@@ -1,9 +1,11 @@
 from numbers import Number
+
 import numpy as np
+
 from ..logger import logger
 
 
-class FormulaeBase(object):
+class FormulaeBase:
     """Data management class for all flow quantities"""
 
     def __init__(self, *args, **kwargs):
@@ -59,7 +61,7 @@ class FormulaeBase(object):
 
     def store(self, key, val):
         if key not in self.keys:
-            raise ValueError("Unknown key: {} not in {}".format(key, self.keys))
+            raise ValueError(f"Unknown key: {key} not in {self.keys}")
 
         self._check_limits(key, val)
         self.data[key].append(val)
@@ -71,10 +73,6 @@ class FormulaeBase(object):
         maximum = self.maxima[key]
         if isinstance(val, np.ndarray) or isinstance(val, Number):
             if np.all(val < minimum) or np.all(val > maximum):
-                logger.error(
-                    "{} = {} must be between {} and {}".format(
-                        key, val, minimum, maximum
-                    )
-                )
+                logger.error(f"{key} = {val} must be between {minimum} and {maximum}")
         else:
-            logger.critical("{} is not a number.".format(val))
+            logger.critical(f"{val} is not a number.")

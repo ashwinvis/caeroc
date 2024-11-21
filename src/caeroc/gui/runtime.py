@@ -4,8 +4,8 @@ Qt signals and slots.
 """
 
 import sys
-from qtpy import QtGui, QtCore, QtWidgets
-from qtpy import PYQT5, PYSIDE2
+
+from qtpy import PYQT5, PYSIDE2, QtCore, QtGui, QtWidgets
 
 from .. import formulae
 from ..logger import logger
@@ -33,7 +33,7 @@ class CalcDialog(QtWidgets.QDialog):
         the GUI and setup the application user interface.
 
         """
-        super(CalcDialog, self).__init__(parent)
+        super().__init__(parent)
 
         self.ui = Ui_CalcDialog()
         self.ui.setupUi(self)
@@ -90,7 +90,7 @@ class CalcDialog(QtWidgets.QDialog):
     def _set_mode(self, **kwargs):
         if not isinstance(self.mode, self.Mode):
             self.mode = self.Mode(gamma=self.gamma, **kwargs)
-            logger.debug("MODE: {}".format(self.mode.__doc__))
+            logger.debug(f"MODE: {self.mode.__doc__}")
 
     def _set_attr_to_key(self, extra=None):
         self.attr_to_key = {v: k for k, v in self.key1_to_attr.items()}
@@ -202,7 +202,7 @@ class CalcDialog(QtWidgets.QDialog):
     def on_qcb_autocalc_stateChanged(self):
         """Run when the AutoCalculate QCheckBox state changes."""
         self.autocalc = self.ui.qcb_autocalc.isChecked()
-        logger.debug("Auto calculate: {}".format(self.autocalc))
+        logger.debug(f"Auto calculate: {self.autocalc}")
 
     @Slot()
     def on_qpb_calculate_released(self):

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 ################################################################################
 ## Form generated from reading UI file 'base.ui'
 ##
@@ -13,7 +11,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Ui_CalcDialog(object):
+class Ui_CalcDialog:
     def setupUi(self, CalcDialog):
         if not CalcDialog.objectName():
             CalcDialog.setObjectName("CalcDialog")

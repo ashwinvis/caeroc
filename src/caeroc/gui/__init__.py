@@ -1,4 +1,5 @@
 import sys
+
 from caeroc.gui import runtime
 
 try:

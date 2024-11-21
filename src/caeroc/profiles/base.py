@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 Created on Wed May 20 16:52:11 2015
 
 @author: ashwin
 """
-import pylab as pl
+
 import numpy as np
+import pylab as pl
 
 
 class ProfilesBase:

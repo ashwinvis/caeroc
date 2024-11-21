@@ -1,7 +1,8 @@
 import numpy as np
 from skaero.gasdynamics.shocks import _ShockClass
-from ..util.decorators import storeresult
+
 from ..logger import logger
+from ..util.decorators import storeresult
 from .base import FormulaeBase
 
 

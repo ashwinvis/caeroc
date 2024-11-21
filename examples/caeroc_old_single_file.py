@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 Compressible Aerodynamics calculator
 """
 
-from __future__ import print_function
+import math as Math
+
 import matplotlib.pyplot as plt
 import numpy as np
-import math as Math
 
 
 class Body:

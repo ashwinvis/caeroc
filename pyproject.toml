@@ -52,3 +52,6 @@ metadata.allow-direct-references = true
 
 [tool.uv.sources]
 caeroc = { workspace = true }
+
+[tool.ruff.lint]
+select = ["E", "I", "UP"]

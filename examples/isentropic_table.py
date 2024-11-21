@@ -1,7 +1,7 @@
-from __future__ import print_function
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
 from caeroc.formulae.isentropic import Isentropic
 
 isen = Isentropic()

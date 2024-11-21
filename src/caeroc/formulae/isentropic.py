@@ -5,8 +5,9 @@ from skaero.gasdynamics.isentropic import (
     mach_from_area_ratio,
     mach_from_nu,
 )
-from ..util.decorators import storeresult
+
 from ..logger import logger
+from ..util.decorators import storeresult
 from .base import FormulaeBase
 
 

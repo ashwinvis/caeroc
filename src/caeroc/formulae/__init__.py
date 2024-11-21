@@ -1,1 +1,1 @@
-from caeroc.formulae import isentropic, shock, duct
+from caeroc.formulae import duct, isentropic, shock
