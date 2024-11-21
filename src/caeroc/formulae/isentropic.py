@@ -1,6 +1,10 @@
 import numpy as np
-from skaero.gasdynamics.isentropic import (IsentropicFlow, PrandtlMeyerExpansion,
-                                           mach_from_area_ratio, mach_from_nu)
+from skaero.gasdynamics.isentropic import (
+    IsentropicFlow,
+    PrandtlMeyerExpansion,
+    mach_from_area_ratio,
+    mach_from_nu,
+)
 from ..util.decorators import storeresult
 from ..logger import logger
 from .base import FormulaeBase
@@ -8,7 +12,7 @@ from .base import FormulaeBase
 
 def safe_div(x1, x2):
     """Quietly divide x1 by x2, while ignoring RuntimeWarnings."""
-    old_err_state = np.seterr(divide='ignore')
+    old_err_state = np.seterr(divide="ignore")
     out = np.divide(x1, x2)
     np.seterr(**old_err_state)
     return out
@@ -18,8 +22,17 @@ class Isentropic(FormulaeBase, IsentropicFlow):
     """Isentropic flow relations for quasi 1D flows"""
 
     def __init__(self, gamma=1.4):
-        self.keys = ['M', 'p_p0', 'rho_rho0', 'T_T0',
-                     'Mt', 'p_pt', 'rho_rhot', 'T_Tt', 'A_Astar']
+        self.keys = [
+            "M",
+            "p_p0",
+            "rho_rho0",
+            "T_T0",
+            "Mt",
+            "p_pt",
+            "rho_rhot",
+            "T_Tt",
+            "A_Astar",
+        ]
         super(Isentropic, self).__init__(gamma=gamma)
 
     @storeresult
@@ -95,7 +108,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         gp1 = self.gamma + 1
         gm1 = self.gamma - 1
 
-        Mt = 1. / np.sqrt(gp1 / gm1 * (safe_div(1, M**2) / gm1 + 0.5))
+        Mt = 1.0 / np.sqrt(gp1 / gm1 * (safe_div(1, M**2) / gm1 + 0.5))
         return Mt
 
     @storeresult
@@ -110,8 +123,9 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).p_p0(M) * np.power((g / 2. + .5),
-                                                          g / (g - 1.))
+        return super(Isentropic, self).p_p0(M) * np.power(
+            (g / 2.0 + 0.5), g / (g - 1.0)
+        )
 
     @storeresult
     def rho_rhot(self, M, *args, **kwargs):
@@ -125,8 +139,9 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).rho_rho0(M) * np.power((g /2. + .5),
-                                                              1. / (g - 1.))
+        return super(Isentropic, self).rho_rho0(M) * np.power(
+            (g / 2.0 + 0.5), 1.0 / (g - 1.0)
+        )
 
     @storeresult
     def T_Tt(self, M, *args, **kwargs):
@@ -140,7 +155,7 @@ class Isentropic(FormulaeBase, IsentropicFlow):
 
         """
         g = self.gamma
-        return super(Isentropic, self).T_T0(M) * (g / 2. + .5)
+        return super(Isentropic, self).T_T0(M) * (g / 2.0 + 0.5)
 
     @storeresult
     def A_Astar(self, M, *args, **kwargs):
@@ -163,31 +178,29 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         return super(Isentropic, self).A_Astar(M)
 
     @storeresult
-    def M(self, p_p0=None, rho_rho0=None,
-          T_T0=None, A_Astar=None, *args, **kwargs):
+    def M(self, p_p0=None, rho_rho0=None, T_T0=None, A_Astar=None, *args, **kwargs):
         """
         Computes Mach number when one of the arguments are specified
 
         """
         g = self.gamma
         if p_p0 is not None:
-            M = np.sqrt(2. * ((1./np.power(p_p0, (g-1.)/g)) - 1.) / (g-1.))
+            M = np.sqrt(2.0 * ((1.0 / np.power(p_p0, (g - 1.0) / g)) - 1.0) / (g - 1.0))
         elif rho_rho0 is not None:
-            M = np.sqrt(2. * ((1./np.power(rho_rho0, (g-1.))) - 1.) / (g-1.))
+            M = np.sqrt(2.0 * ((1.0 / np.power(rho_rho0, (g - 1.0))) - 1.0) / (g - 1.0))
         elif T_T0 is not None:
-            M = np.sqrt(2. * ((1./T_T0)-1.)/(g-1.))
+            M = np.sqrt(2.0 * ((1.0 / T_T0) - 1.0) / (g - 1.0))
         elif A_Astar is not None:
             Msub, Msup = mach_from_area_ratio(A_Astar)
             M = np.array([Msub, Msup])
-        elif 'M' in kwargs.keys():
-            return kwargs['M']
+        elif "M" in kwargs.keys():
+            return kwargs["M"]
         else:
-            logger.error('Insufficient data to calculate Mach number')
+            logger.error("Insufficient data to calculate Mach number")
 
         return M
 
-    def calculate(self, M=None, p_p0=None, rho_rho0=None,
-                  T_T0=None, A_Astar=None):
+    def calculate(self, M=None, p_p0=None, rho_rho0=None, T_T0=None, A_Astar=None):
         """
         Wrapper function to calculate all possible data and store
         using keywords and values in the dictionary `data`.
@@ -201,8 +214,13 @@ class Isentropic(FormulaeBase, IsentropicFlow):
         if M is not None:
             mach = M
         else:
-            kwargs = {'p_p0': p_p0, 'rho_rho0': rho_rho0, 'T_T0': T_T0,
-                      'A_Astar': A_Astar, 'store': False}
+            kwargs = {
+                "p_p0": p_p0,
+                "rho_rho0": rho_rho0,
+                "T_T0": T_T0,
+                "A_Astar": A_Astar,
+                "store": False,
+            }
             mach = self.M(**kwargs)
 
         for key in self.keys:
@@ -216,12 +234,19 @@ class Expansion(FormulaeBase, PrandtlMeyerExpansion):
     """Isentropic expansion fan flow relations"""
 
     def __init__(self, gamma=1.4):
-        self.keys = ['M_1', 'M_2', 'nu_1', 'nu_2', 'theta',
-                     'p2_p1', 'rho2_rho1', 'T2_T1']
+        self.keys = [
+            "M_1",
+            "M_2",
+            "nu_1",
+            "nu_2",
+            "theta",
+            "p2_p1",
+            "rho2_rho1",
+            "T2_T1",
+        ]
         self.gamma = gamma
 
-    def calculate(self, theta_deg=None, theta_rad=None,
-                  M_1=None, nu_1=None):
+    def calculate(self, theta_deg=None, theta_rad=None, M_1=None, nu_1=None):
         """
         Calculate all possible data and store
         using keywords and values in the dictionary `data`.
@@ -240,14 +265,13 @@ class Expansion(FormulaeBase, PrandtlMeyerExpansion):
         elif theta_rad:
             self.theta = theta_rad
         else:
-            logger.error('Insufficient data: Turn angle must be specified.')
+            logger.error("Insufficient data: Turn angle must be specified.")
 
         if M_1 is None:
             if nu_1 is not None:
                 M_1 = mach_from_nu(nu=nu_1, gamma=self.gamma)
             else:
-                logger.error('Insufficient data: M_1 or nu_1' +
-                             'must be specified.')
+                logger.error("Insufficient data: M_1 or nu_1" + "must be specified.")
 
         self.M_1 = M_1
         super(Expansion, self).__init__(M_1=self.M_1, theta=self.theta)

@@ -2,7 +2,7 @@
 caeroc
 ========
 
-Provides 
+Provides
 
   1. An object-oriented calculator utility and plotting.
   2. GUI interface.
@@ -27,9 +27,11 @@ profiles
     Toolkit for making specific calculations for a body.
 
 """
-__version__ = '0.0.2b2'
+
+__version__ = "0.0.2b2"
 
 
 def launch():
     from . import gui
+
     gui.CalcApp().run()

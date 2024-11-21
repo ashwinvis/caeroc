@@ -79,7 +79,9 @@ class Ui_CalcDialog(object):
         self.qpb_calculate.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.qpb_calculate.setAutoFillBackground(False)
         self.qpb_calculate.setObjectName("qpb_calculate")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.qpb_calculate)
+        self.formLayout.setWidget(
+            0, QtWidgets.QFormLayout.FieldRole, self.qpb_calculate
+        )
         self.gridLayout_3.addWidget(self.formFrame, 7, 4, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.inputFrame)
         self.label_3.setEnabled(False)
@@ -116,7 +118,9 @@ class Ui_CalcDialog(object):
         self.label_2 = QtWidgets.QLabel(self.inputFrame)
         self.label_2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.label_2.setTextFormat(QtCore.Qt.PlainText)
-        self.label_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_2.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
         self.label_2.setObjectName("label_2")
         self.gridLayout_3.addWidget(self.label_2, 7, 0, 1, 1)
         self.gridLayout.addWidget(self.inputFrame, 2, 0, 4, 2)
@@ -136,7 +140,9 @@ class Ui_CalcDialog(object):
         self.outputLayout.addWidget(self.label_4, 0, 0, 1, 1)
         self.qtw_output = QtWidgets.QTableView(self.gridWidget)
         self.qtw_output.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.qtw_output.sizePolicy().hasHeightForWidth())
@@ -149,20 +155,24 @@ class Ui_CalcDialog(object):
         self.outputLayout.addWidget(self.qtw_output, 1, 0, 1, 1)
         self.verticalLayout.addLayout(self.outputLayout)
         self.buttonBox = QtWidgets.QDialogButtonBox(self.gridWidget)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Close|QtWidgets.QDialogButtonBox.Reset)
+        self.buttonBox.setStandardButtons(
+            QtWidgets.QDialogButtonBox.Close | QtWidgets.QDialogButtonBox.Reset
+        )
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
         self.verticalLayout_2.addWidget(self.gridWidget)
 
         self.retranslateUi(CalcDialog)
-        self.buttonBox.accepted.connect(CalcDialog.accept) # type: ignore
-        self.buttonBox.rejected.connect(CalcDialog.reject) # type: ignore
+        self.buttonBox.accepted.connect(CalcDialog.accept)  # type: ignore
+        self.buttonBox.rejected.connect(CalcDialog.reject)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(CalcDialog)
 
     def retranslateUi(self, CalcDialog):
         _translate = QtCore.QCoreApplication.translate
         CalcDialog.setWindowTitle(_translate("CalcDialog", "Caeroc Calculator"))
-        CalcDialog.setToolTip(_translate("CalcDialog", "<html><head/><body><p>Input</p></body></html>"))
+        CalcDialog.setToolTip(
+            _translate("CalcDialog", "<html><head/><body><p>Input</p></body></html>")
+        )
         self.qrb4_obli.setText(_translate("CalcDialog", "Ob&lique Shock"))
         self.qrb3_norm.setText(_translate("CalcDialog", "&Normal Shock"))
         self.qrb1_isen.setText(_translate("CalcDialog", "Isen&tropic"))

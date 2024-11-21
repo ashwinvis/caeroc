@@ -1,6 +1,6 @@
-<!---- 
-Source code from 
-http://www.dept.aoe.vt.edu/~devenpor/aoe3114/calc.html 
+<!----
+Source code from
+http://www.dept.aoe.vt.edu/~devenpor/aoe3114/calc.html
 ------->
 
 <SCRIPT>
@@ -144,7 +144,7 @@ function nsr(form) {
       fm=Math.pow(al,g/(g-1.))*Math.pow(be,1./(g-1.))-1./v
       fdm=g/(g-1.)*Math.pow(al,1/(g-1.))*daldm1*Math.pow(be,1./(g-1.))+Math.pow(al,g/(g-1.))/(g-1.)*Math.pow(be,(2.-g)/(g-1.))*dbedm1
       mnew=m1-fm/fdm}}
- 
+
   else {
     if(v<=1.0) {
       alert("M1 must be greater than 1")
@@ -284,11 +284,11 @@ function mdb(g,m1,d,i) {
         x1*=-1.
         x2*=-1.
         x3*=-1.}}
- 
+
     s1=x1-p/3.
     s2=x2-p/3.
     s3=x3-p/3.
- 
+
     if(s1<s2 && s1<s3) {
       t1=s2
       t2=s3}
@@ -307,7 +307,7 @@ function mdb(g,m1,d,i) {
     if(b2>b1) {
       betas=b2
       betaw=b1}
- 
+
     if(i==0) {return betaw}
     if(i==1) {return betas}}
 }
@@ -318,7 +318,7 @@ function mbd(g,m1,b) {
 function format(s) {
 
   val=eval(s)
- 
+
   if(Math.abs(val)<1.0e+6 && Math.abs(val)>1.0e-5) {
      if(val>0.0) return " "+s.substring(0,10)     //Medium size numbers w/o exponents
      else return s.substring(0,11)}
@@ -351,7 +351,7 @@ function format(s) {
   if(xpo<10) return mant+"00"+xpos
   if(xpo<100) return mant+"0"+xpos
   return mant+xpos
- 
+
 }
 
-</SCRIPT> 
+</SCRIPT>
