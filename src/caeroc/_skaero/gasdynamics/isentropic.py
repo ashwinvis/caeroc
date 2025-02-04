@@ -1,4 +1,4 @@
-""" Isentropic properties. """
+"""Isentropic properties."""
 
 import numpy as np
 import scipy as sp
