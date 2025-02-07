@@ -12,7 +12,7 @@ class Body:
     def __init__(self, N, length, bodytype=None):
         self.N = N
         self.L = length
-        if bodytype is "airfoil":
+        if bodytype == "airfoil":
             self.X, self.Y, self.angle = self.airfoil()
         else:
             self.X, self.Y, self.angle = self.circle()
@@ -91,9 +91,11 @@ class Expansion(Isentropic):
 
     def M2(self, M1, theta, gamma=1.4):
         if M1 < 0:
-            raise ValueError("Subsonic flow.")
+            error = "Subsonic flow."
+            raise ValueError(error)
         if theta < 0 or theta > np.pi / 2:
-            raise ValueError("Incorrect deflection angle. Cannot calculate!")
+            error = "Incorrect deflection angle. Cannot calculate!"
+            raise ValueError(error)
         pm1 = self.pm(M1, gamma)
         pm2 = pm1 + theta
 
@@ -123,7 +125,8 @@ class Expansion(Isentropic):
             n = None
 
         numax = (np.sqrt((gamma + 1.0) / (gamma - 1.0)) - 1) * 90.0
-        if n <= 0.0 or n >= numax:
+        if not n or n <= 0.0 or n >= numax:
+            error = "Prandtl-Meyer angle out of bounds"
             raise ValueError("Prandtl-Meyer angle out of bounds")
         return n
 
@@ -222,7 +225,7 @@ class AirfoilChara:
         self.exp = Expansion()
 
     def calc_cp_lin(self, angle):
-        N = angle.size / 2
+        N = angle.size // 2
         angle = angle - self.AoA
         self.cp_lin[:N] = 2 * angle[:N] / np.sqrt(self.M1**2 - 1)
         self.cp_lin[N:] = 2 * -angle[N:] / np.sqrt(self.M1**2 - 1)
@@ -238,21 +241,21 @@ class AirfoilChara:
         # Oblique shock
         angle = angle - self.AoA
         M2[0] = self.obs.M2(M1, angle[0])
-        M2[N / 2] = self.obs.M2(M1, -angle[N / 2])
+        M2[N // 2] = self.obs.M2(M1, -angle[N // 2])
         p2_p1[0] = self.obs.p2_p1(M1, angle[0])
-        p2_p1[N / 2] = self.obs.p2_p1(M1, -angle[N / 2])
+        p2_p1[N // 2] = self.obs.p2_p1(M1, -angle[N // 2])
 
         # Expanded flow
-        for i in range(0, N / 2 - 1):
+        for i in range(0, N // 2 - 1):
             j = i + 1
-            k = N / 2 + i
-            L = N / 2 + i + 1
+            k = N // 2 + i
+            L = N // 2 + i + 1
             if debug:
                 print("M2=", M2[i], M2[k], "   p2/p1=", p2_p1[i], p2_p1[k])
 
             dangle = angle[i] - angle[j]
             M2[j] = self.exp.M2(M2[i], dangle)
-            dangle = -(angle[k] - angle[l])
+            dangle = -(angle[k] - angle[L])
             M2[L] = self.exp.M2(M2[k], dangle)
 
             p2_p1[j] = self.exp.p_p0(M2[j]) / self.exp.p_p0(M2[i]) * p2_p1[i]
@@ -260,13 +263,13 @@ class AirfoilChara:
 
         self.cp_shock = 2 * (p2_p1 - 1) / (gamma * M1**2)
         if debug:
-            for i in range(0, N / 2 - 1):
-                k = N / 2 + i
+            for i in range(0, N // 2 - 1):
+                k = N // 2 + i
                 print("Cp=", self.cp_shock[i], self.cp_shock[k])
 
 
 if __name__ == "__main__":
-    N = 100
+    N = 30
     length = 70.0
     airfoil = Body(N, length, "airfoil")
     chara = AirfoilChara(2 * N, Mach=2, AngleOfAttack=1.5)
