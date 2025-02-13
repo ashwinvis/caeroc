@@ -28,7 +28,7 @@ profiles
 
 """
 
-__version__ = "0.0.2b2"
+__version__ = "0.0.4a0"
 
 
 def launch():

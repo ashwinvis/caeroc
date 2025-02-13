@@ -1,6 +1,6 @@
 [project]
 name = "caeroc"
-version = "0.0.3b1"
+version = "0.0.4a0"
 description = "Compressible aerodynamics calculator in Python"
 authors = [{ name = "Ashwin V. Mohanan", email = "dev@fluid.quest" }]
 dependencies = [
@@ -17,7 +17,8 @@ license = "GPL"
 license-files = ["LICENSE", "src/caeroc/_skaero/COPYING"]
 keywords = ["compressible aerodynamics", "calculator", "gas dynamics"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 3 - Alpha",
+  # "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
   "Intended Audience :: Science/Research",
   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.4a0
+------
+- Allow Numpy 2.x
+
 0.0.3b1
 -------
 - Restructure packaging and require Python >= 3.10
