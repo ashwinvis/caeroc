@@ -49,7 +49,7 @@ metadata.allow-direct-references = true
 caeroc = { workspace = true }
 
 [tool.ruff.lint]
-select = ["E", "I", "UP"]
+select = ["E", "I", "UP", "NPY"]
 ignore = ["E501"]
 
 [dependency-groups]
