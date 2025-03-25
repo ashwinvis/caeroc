@@ -1,10 +1,23 @@
-caeroc
-======
+.. raw:: html
 
-Compressible Aerodynamics Calculator for Python
------------------------------------------------
+   <p align="center">
+      <a href="https://www.attrs.org/">
+          <picture>
+            <source srcset="https://raw.githubusercontent.com/ashwinvis/caeroc/refs/heads/main/docs/logos/Caeroc-label-white.svg" media="(prefers-color-scheme: dark)">
+            <img src="https://raw.githubusercontent.com/ashwinvis/caeroc/refs/heads/main/docs/logos/Caeroc-label.svg" width="35%" alt="attrs" />
+          </picture>
+      </a>
+      <p><i>Compressible Aerodynamics Calculator for Python</i></p>
+   </p>
 
-|version| |LICENSE| |travis|
+   <p align="center">
+      <a href="https://pypi.python.org/pypi/caeroc/">
+      <img alt="Latest version" src="https://img.shields.io/pypi/v/caeroc.svg" />
+      </a>
+      <a href="/LICENSE">
+      <img alt="https://img.shields.io/badge/license-GPL-blue.svg" src="https://img.shields.io/badge/license-GPL-blue.svg" />
+      </a>
+   </p>
 
 A python package for compressible flows. A dynamic toolkit which enables
 you to make use of the formulae governing compressible flows.
@@ -84,11 +97,3 @@ Courtesy
    This project is pushing more functionalities as an offline tool and
    allowing users to dynamically use the formulae for specific cases.
 -  Thanks to the scikit-aero team for being the backend
-
-.. |version| image:: https://img.shields.io/pypi/v/caeroc.svg
-   :target: https://pypi.python.org/pypi/caeroc/
-   :alt: Latest version
-.. |LICENSE| image:: https://img.shields.io/badge/license-GPL-blue.svg
-   :target: /LICENSE
-.. |travis| image:: https://travis-ci.org/ashwinvis/caeroc.svg?branch=master
-   :target: https://travis-ci.org/ashwinvis/caeroc
