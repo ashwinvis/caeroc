@@ -1,23 +1,23 @@
 .. raw:: html
 
-   <p align="center">
-      <a href="https://www.attrs.org/">
+   <div align="center">
+      <a href="https://pypi.python.org/pypi/caeroc/">
           <picture>
             <source srcset="https://raw.githubusercontent.com/ashwinvis/caeroc/refs/heads/main/docs/logos/Caeroc-label-white.svg" media="(prefers-color-scheme: dark)">
             <img src="https://raw.githubusercontent.com/ashwinvis/caeroc/refs/heads/main/docs/logos/Caeroc-label.svg" width="35%" alt="attrs" />
           </picture>
       </a>
       <p><i>Compressible Aerodynamics Calculator for Python</i></p>
-   </p>
+   </div>
 
-   <p align="center">
+   <div align="center">
       <a href="https://pypi.python.org/pypi/caeroc/">
       <img alt="Latest version" src="https://img.shields.io/pypi/v/caeroc.svg" />
       </a>
       <a href="/LICENSE">
       <img alt="https://img.shields.io/badge/license-GPL-blue.svg" src="https://img.shields.io/badge/license-GPL-blue.svg" />
       </a>
-   </p>
+   </div>
 
 A python package for compressible flows. A dynamic toolkit which enables
 you to make use of the formulae governing compressible flows.
